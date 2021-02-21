@@ -5,8 +5,9 @@ using CodeMonkey.Utils;
 using CodeMonkey;
 
 public class Testing2 : MonoBehaviour
-{
+{ 
     [SerializeField] private PathfindingVisual pathfindingVisual;
+    [SerializeField] private CharacterPathfindingMovementHandler characterPathfinding;
     private Pathfinding pathfinding;
 
     private void Start()
@@ -29,6 +30,7 @@ public class Testing2 : MonoBehaviour
                     Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f, Color.grey;
                 }
             }
+            characterPathfinding.SetTargetPosition(mouseWorldPosition);
         }
         if (InputGetMouseButtonDown(1))
         {

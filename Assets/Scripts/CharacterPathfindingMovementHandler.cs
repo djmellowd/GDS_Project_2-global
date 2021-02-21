@@ -18,9 +18,39 @@ public class CharacterPathfindingMovementHandler : MonoBehaviour
     {
         Transform.bodyTransform = transform.Find("Body");
 
-        unitSkeleton = new V_UnitSkeleton(1f, bodyTransform.TransformPoint, (Mesh mesh) => bodyTransform.GetComponent<MeshFilter>;
+        unitSkeleton = new V_UnitSkeleton(1f, bodyTransform.TransformPoint, (Mesh mesh) => bodyTransform.GetComponent<MeshFilter>);
         unitAnimation = new V_UnitAnimation(unitSkeleton);
-        animatedWalker = new AnimatedWalker(unitAnimation, UnitAnimType.GetUnitAnimType("dMarine_Idle"))
+        animatedWalker = new AnimatedWalker(unitAnimation, UnitAnimType.GetUnitAnimType("dMarine_Idle"));
+    }
+
+    private void HandleMovement()
+    {
+        if (pathVectorList != null)
+        {
+            Vector3 targetPosition = pathVectorList[currentPathIndex];
+            if (Vector3.Distance(transform.position, targetPosition) > 1f)
+            {
+                Vector3 moveDir = (targetPosition - transform.position).normalized;
+
+                float distanceBefore = Vector3.Distance(transform.position, targetPosition);
+                animatedWalker.SetMoveVector(moveDir);
+                transform.position = transform.position + moveDir * speed * Time.deltaTime;
+            }
+            else
+            {
+                currentPathIndex++;
+
+                if (currentPathIndex >= pathVectorList.Count)
+                {
+                    StopMoving();
+                    animatedWalker.SetMoveVector(Vector3.zero);
+                }
+            }
+        }
+        else
+        {
+            animatedWalker.SetMoveVector(Vector3.zero);
+        }
     }
 
     private void StopMoving()
@@ -36,6 +66,7 @@ public class CharacterPathfindingMovementHandler : MonoBehaviour
     public void SetTargetPosition(Vector3 targetPosition)
     {
         currentPathIndex = 0;
+        pathVectorList = Pathfinding.Instance.FindPath(GetPosition(), targetPosition);
 
         if (pathVectorList != null && pathVectorList.Count > 1)
         {
