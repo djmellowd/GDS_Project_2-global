@@ -20,7 +20,7 @@ public class Grid<TGridObject>
     private TGridObject[,] gridArray;
     private TextMesh[,] debugTextArray;
 
-    public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject())
+    public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject)
     {
         this.width = width;
         this.height = height;
@@ -56,33 +56,33 @@ public class Grid<TGridObject>
         SetValue(2, 1, 56);
     }
 
-    public int GetWidth()
+    int GetWidth()
     {
         return width;
     }
 
-    public int GetHeight()
+    int GetHeight()
     {
         return height;
     }
 
-    public float GetCellSize()
+    float GetCellSize()
     {
         return cellSize;
     }
 
-    private Vector3 GetWorldPosition(int x, int y)
+    Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
-    private void GetXY(Vector3 worldPosition, out int x, out int y)
+    void GetXY(Vector3 worldPosition, out int x, out int y)
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
     }
 
-    public void SetValue(int x, int y, int value)
+    void SetValue(int x, int y, int value)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
@@ -94,14 +94,14 @@ public class Grid<TGridObject>
         }
     }
 
-    public void SetValue(Vector3 worldPosition, int value)
+    void SetValue(Vector3 worldPosition, int value)
     {
         int x, y;
         GetXY(worldPosition, out x, out y);
         SetValue(x, y, value);
     }
 
-    public int GetValue(int x, int y)
+    int GetValue(int x, int y)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
@@ -113,7 +113,7 @@ public class Grid<TGridObject>
         }
     }
 
-    public int GetValue(Vector3 worldPosition)
+    int GetValue(Vector3 worldPosition)
     {
         int x, y;
         GetXY(worldPosition, out x, out y);

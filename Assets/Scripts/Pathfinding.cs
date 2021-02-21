@@ -37,6 +37,61 @@ public class Pathfinding
         startNode.gCost = 0;
         startNode.hCost = CalculateDistanceCost(startNode, endNode);
         startNode.CalculateFCost();
+
+        while (openList.Count > 0)
+        {
+            PathNode currentNode = GetLowestFCostNode(openList);
+            if (currentNode == endNode)
+            {
+                return CalculatePath(endNode);
+            }
+            openList.Remove(currentNode);
+            closedList.Add(currentNode);
+        }
+    }
+
+    private List<PathNode> GetNeighbourList(PathNode currentNode)
+    {
+        List<PathNode> neighbourList = new List<PathNode>();
+
+        if (currentNode.x - 1 >= 0)
+        {
+            neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
+            if (currentNode.y - 1 >= 0)
+            {
+                neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
+            }
+            if (currentNode.y + 1 < grid.GetHeight())
+            {
+                neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
+            }
+        }
+        if (currentNode.x + 1 < grid.GetWidth())
+        {
+            neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y));
+            if (currentNode.y - 1 >= 0)
+            {
+                neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
+            }
+            if (currentNode.y + 1 < grid.GetHeight())
+            {
+                neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
+            }
+        }
+        if (currentNode.y - 1 >= 0)
+        {
+            neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));
+        }
+        if (currentNode.y + 1 < grid.GetHeight())
+        {
+            neighbourList.Add(GetNode(currentNode.x, currentNode.y + 1));
+        }
+        return neighbourList;
+    }
+
+    private List<PathNode> CalculatePath(PathNode endNode)
+    {
+        return null;
     }
 
     private int CalculateDistanceCost(PNode a, PNode b)
@@ -45,5 +100,18 @@ public class Pathfinding
         int yDistance = Mathf.Abs(a.y - b.y);
         int remaining = Mathf.Abs(xDistance - yDistance);
         return MOVE_DIAGONAL_COST = Mathf.Min(xDistance, yDistance) + MOVE_STRAIGHT_COST * remaining;
+    }
+
+    private PathNode GetLowestFCostNode(List<PathNode> pathNodeList)
+    {
+        PathNode lowestFCostNode = pathNodeList[0];
+        for (int i = 1; i < pathNodeList.Count; i++)
+        {
+            if (pathNodeList[i].fCost < lowestFCostNode.fCost)
+            {
+                lowestFCostNode = pathNodeList[i];
+            }
+        }
+        return lowestFCostNode;
     }
 }

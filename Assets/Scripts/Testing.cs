@@ -34,7 +34,7 @@ public class Testing : MonoBehaviour
         {
             this.grid = grid;
 
-            mesh = new Mesh;
+            mesh[] = new Mesh;
             meshFilter.mesh = mesh;
 
             UpdateHeatMapVisual();
