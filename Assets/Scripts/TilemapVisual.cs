@@ -74,7 +74,7 @@ public class TilemapVisual : MonoBehaviour
 
     private void UpdateVisual()
     {
-        MeshUtils.CreateEmptyMeshArrays(grid.GetWidth() * grid.GetHeight(), out Vector3[], vertices, out Vector2[], uv, out int[] triangles);
+        MeshUtils.CreateEmptyMeshArrays(grid.GetWidth() * grid.GetHeight(), out Vector3[] vertices, out Vector2[] uv, out int[] triangles);
 
         for (int x = 0; x < grid.GetWidth(); x++)
         {

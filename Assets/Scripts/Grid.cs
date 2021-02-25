@@ -56,33 +56,33 @@ public class Grid<TGridObject>
         SetValue(2, 1, 56);
     }
 
-    int GetWidth()
+    public int GetWidth()
     {
         return width;
     }
 
-    int GetHeight()
+    public int GetHeight()
     {
         return height;
     }
 
-    float GetCellSize()
+    public float GetCellSize()
     {
         return cellSize;
     }
 
-    Vector3 GetWorldPosition(int x, int y)
+    private Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
-    void GetXY(Vector3 worldPosition, out int x, out int y)
+    private void GetXY(Vector3 worldPosition, out int x, out int y)
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
     }
 
-    void SetValue(int x, int y, int value)
+    public void SetValue(int x, int y, int value)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
@@ -94,14 +94,14 @@ public class Grid<TGridObject>
         }
     }
 
-    void SetValue(Vector3 worldPosition, int value)
+    public void SetValue(Vector3 worldPosition, int value)
     {
         int x, y;
         GetXY(worldPosition, out x, out y);
         SetValue(x, y, value);
     }
 
-    int GetValue(int x, int y)
+    public int GetValue(int x, int y)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
@@ -113,7 +113,7 @@ public class Grid<TGridObject>
         }
     }
 
-    int GetValue(Vector3 worldPosition)
+    public int GetValue(Vector3 worldPosition)
     {
         int x, y;
         GetXY(worldPosition, out x, out y);
