@@ -24,28 +24,40 @@ public class Testing3 : MonoBehaviour
             tilemap.SetTilemapSprite(mouseWorldPosition, tilemapSprite);
         }
 
-        if(Input.GetKeyDown(T))
+        if(Input.GetKeyDown(KeyCode.T))
         {
             tilemapSprite = Tilemap.TilemapObject.TilemapSprite.None;
             CMDebug.TextPopupMouse(tilemapSprite.ToString());
         }
 
-        if (Input.GetKeyDown(Y))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Ground;
             CMDebug.TextPopupMouse(tilemapSprite.ToString());
         }
 
-        if (Input.GetKeyDown(U))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Path;
             CMDebug.TextPopupMouse(tilemapSprite.ToString());
         }
 
-        if (Input.GetKeyDown(I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             tilemapSprite = Tilemap.TilemapObject.TilemapSprite.Dirt;
             CMDebug.TextPopupMouse(tilemapSprite.ToString());
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            tilemap.Save();
+            CMDebug.TextPopupMouse("Saved!");
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            tilemap.Load();
+            CMDebug.TextPopupMouse("Loaded!");
         }
     }
 }
