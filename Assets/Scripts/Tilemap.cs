@@ -102,7 +102,7 @@ public class Tilemap
         [System.Serializable]
         public class SaveObject
         {
-            public TilemapSpite tilemapSprite;
+            public TilemapSprite tilemapSprite;
             public int x;
             public int y;
         }

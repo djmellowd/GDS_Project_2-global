@@ -7,9 +7,8 @@ public class GridCombatSystem : MonoBehaviour
 {
     [SerializeField] private UnitGridCombat unitGridCombat;
     [SerializeField] private UnitGridCombat[] unitGridCombatArray;
-
-    private State state;
     private UnitGridCombat unitGridCombat;
+    private State state;
     private List<UnitGridCombat> blueTeamList;
     private List<UnitGridCombat> redTeamList;
     private int blueTeamActiveUnitIndex;
@@ -214,7 +213,7 @@ public class GridCombatSystem : MonoBehaviour
 
     public class GridObject
     {
-        private Grid<EmptyGridObject> grid;
+        private Grid<GridObject> grid;
         private int x;
         private int y;
         private bool isValidMovePosition;

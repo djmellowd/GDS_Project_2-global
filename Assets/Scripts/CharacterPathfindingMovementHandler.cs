@@ -7,7 +7,6 @@ using CodeMonkey.Utils;
 public class CharacterPathfindingMovementHandler : MonoBehaviour
 {
     private const float speed = 40f;
-
     private V_UnitSkeleton unitSkeleton;
     private V_UnitAnimation unitAnimation;
     private AnimatedWalker animatedWalker;
