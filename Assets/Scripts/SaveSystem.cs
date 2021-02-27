@@ -119,7 +119,7 @@ public static class SaveSystem
         string saveString = Load(fileName);
         if(saveString != null)
         {
-            TSaveObject saveObject = JsonUtility.From Json<TSaveObject>(saveString);
+            TSaveObject saveObject = JsonUtility.FromJson<TSaveObject>(saveString);
             return saveObject;
         }
         else

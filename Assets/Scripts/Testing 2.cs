@@ -13,7 +13,7 @@ public class Testing2 : MonoBehaviour
     private void Start()
     {
         Pathfinding pathFinding = new Pathfinding(10, 10);
-        pathfindingVisual.SetGrid(pathfinding.GetGrid())
+        pathfindingVisual.SetGrid(pathfinding.GetGrid());
     }
 
     private void Update()
@@ -27,7 +27,7 @@ public class Testing2 : MonoBehaviour
             {
                 for (int i = 0; i < path.Count; i++)
                 {
-                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f, Color.grey;
+                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f, Color.grey);
                 }
             }
             characterPathfinding.SetTargetPosition(mouseWorldPosition);

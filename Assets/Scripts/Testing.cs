@@ -34,7 +34,7 @@ public class Testing : MonoBehaviour
         {
             this.grid = grid;
 
-            mesh[] = new Mesh;
+            mesh = new Mesh();
             meshFilter.mesh = mesh;
 
             UpdateHeatMapVisual();
@@ -57,7 +57,7 @@ public class Testing : MonoBehaviour
 
             for (int x = 0; x < grid.GetWidth(); x++)
             {
-                for (int y = 0; y < grid.GetHeight(), y++)
+                for (int y = 0; y < grid.GetHeight(); y++)
                 {
                     int index = x * grid.GetHeight() + y;
                     Vector3 baseSize = new Vector3(1, 1) * grid.GetCellSize();
