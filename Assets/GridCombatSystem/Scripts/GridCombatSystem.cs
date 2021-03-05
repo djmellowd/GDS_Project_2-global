@@ -6,9 +6,8 @@ using GridPathfindingSystem;
 
 public class GridCombatSystem : MonoBehaviour {
 
-    [SerializeField] private UnitGridCombat unitGridCombat;
     [SerializeField] private UnitGridCombat[] unitGridCombatArray;
-
+    private UnitGridCombat unitGridCombat;
     private State state;
     private List<UnitGridCombat> blueTeamList;
     private List<UnitGridCombat> redTeamList;
