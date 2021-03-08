@@ -5,10 +5,6 @@ using UnityEngine;
 using V_AnimationSystem;
 using V_ObjectSystem;
 
-/*
- * Manages the Composite Skeleton to Aim and Shoot a Weapon
- * Doesnt manage Feet body parts
- * */
 public class V_UnitSkeleton_Composite_Weapon : V_IActiveInactive {
 
     private V_Object parentObject;
@@ -21,11 +17,9 @@ public class V_UnitSkeleton_Composite_Weapon : V_IActiveInactive {
     private UnitAnim activeAnimAimWeapon;
     private UnitAnim activeAnimShootWeapon;
     private Vector3 aimTargetPosition;
-    private bool usingSkeletonRight; // Currently using Normal or inverted V anim
+    private bool usingSkeletonRight;
     private bool isShooting;
     private Vector3 positionOffset;
-
-    //private string debugText = "";
 
     public V_UnitSkeleton_Composite_Weapon(V_Object parentObject, V_UnitSkeleton unitSkeleton, UnitAnim animAimWeaponRight, UnitAnim animAimWeaponLeft, UnitAnim animShootWeaponRight, UnitAnim animShootWeaponLeft) {
         this.parentObject = parentObject;
@@ -37,8 +31,6 @@ public class V_UnitSkeleton_Composite_Weapon : V_IActiveInactive {
 
         SetPositionOffset(new Vector3(0, -2));
         SetInactive();
-
-        //CodeMonkey.CMDebug.TextUpdater(() => debugText, Vector3.zero, parentObject.GetLogic<V_IObjectTransform>().GetTransform());
     }
 
     public void SetActive() {
@@ -61,9 +53,6 @@ public class V_UnitSkeleton_Composite_Weapon : V_IActiveInactive {
 
         Vector3 aimDir = (aimTargetPosition - parentObject.GetPosition()).normalized;
 
-        //debugText = ""+usingSkeletonRight + " " + aimDir;
-
-        // Decide if should use Right or Left Body Part
         if (!isShooting) {
             switch (UnitAnim.GetAnimDirFromVector(aimDir)) {
             default:
@@ -84,8 +73,6 @@ public class V_UnitSkeleton_Composite_Weapon : V_IActiveInactive {
             case UnitAnim.AnimDir.Left:
             case UnitAnim.AnimDir.DownLeft:
                 if (usingSkeletonRight) {
-                    // Switch sides
-                    //CodeMonkey.CMDebug.TextPopup("ChangeLeft", parentObject.GetPosition());
                     usingSkeletonRight = false;
                     activeAnimAimWeapon = animAimWeaponLeft;
                     activeAnimShootWeapon = animShootWeaponLeft;
@@ -95,7 +82,6 @@ public class V_UnitSkeleton_Composite_Weapon : V_IActiveInactive {
             }
         }
 
-        // Show on top of Body for all except Up
         bool weaponOnTopOfBody = UnitAnim.GetAnimDirFromVectorLimit4Directions(aimDir) != UnitAnim.AnimDir.Up;
 
         int bonusOffset = 2000;

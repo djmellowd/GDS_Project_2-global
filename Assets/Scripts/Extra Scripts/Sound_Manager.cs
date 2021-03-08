@@ -156,34 +156,11 @@ public static class Sound_Manager {
     public static void EnableAllSounds() {
         disableAllSounds = false;
     }
-    /*
-    public static AudioClip GetAudioClip(CustomSound.Type unitSound) {
-        Sound sound = ConvertUnitSoundToSound(unitSound);
-		//Init();
-        if (disableAllSounds) return null;
-		if (!dictionary.ContainsKey(sound)) {
-			Debug.Log("Sound not found: "+sound);
-			return null;
-		}
-        return dictionary[sound];
-    }
-    public static Sound ConvertUnitSoundToSound(CustomSound.Type unitSound) {
-        switch (unitSound) {
-        default:
-        case CustomSound.Type.Sword:              return Sound.Minion_Sword;
-        case CustomSound.Type.Gunshot_Rifle:      return Sound.Rifle_Fire;
-        case CustomSound.Type.Crash:              return Sound.Combo_Earthshatter;
-        }
-    }*/
+
     public static float GetAudio(AudioType audioType) {
         return GetAudioFunc(audioType);
     }
-    /*public static AudioSource PlaySound(CustomSound.Type unitSound, Vector3 pos = default(Vector3), object obj = null) {
-        return PlaySound(ConvertUnitSoundToSound(unitSound), pos, obj);
-    }*/
-    /*public static AudioSource PlaySound(CustomSound unitSound, Vector3 pos) {
-        return PlaySound(unitSound.audioClip, true, pos);
-    }*/
+
 	public static AudioSource PlaySound(AudioClip audioClip, bool usePosition = false, Vector3 pos = default(Vector3)) {
         if (usePosition) {
             return PlayClipAtPoint(audioClip, pos);
@@ -192,8 +169,6 @@ public static class Sound_Manager {
         }
     }
 	public static AudioSource PlaySound(Sound sound, Vector3 pos = default(Vector3), object obj = null) {
-        //Window_DebugMessages.AddMessage(sound);
-		//Init();
         if (disableAllSounds) return null;
 		if (!dictionary.ContainsKey(sound)) {
 			Debug.Log("Sound not found: "+sound);
@@ -204,27 +179,18 @@ public static class Sound_Manager {
             return PlayClip(dictionary[sound]);
         case Sound.Victory:
             return PlayClip(dictionary[sound], 90);
-            //return PlayClipAtPoint(dictionary[sound], pos);
         case Sound.Arrow_Fire:
         case Sound.Arrow_Hit:
         case Sound.Arrow_Deflect:
         case Sound.Sword_Draw:
         case Sound.Sword_Sheathe:
-            //return PlayClipAtPoint(dictionary[sound], pos);
             return PlayClip(dictionary[sound]);
         case Sound.Sword_Hit:
         case Sound.Sword_Wrong:
             return PlayClip(dictionary[sound]);
-            /*if (CanPlay(sound)) {
-                if (Time.realtimeSinceStartup - timers[sound] > .1f)
-                    timers[sound] = Time.realtimeSinceStartup - .05f;
-                timers[sound] += .01f;
-                return PlayClipAtPoint(dictionary[sound], pos, 100);
-            } return null;*/
         case Sound.Dash:
             Sound[] sounds = new[] { Sound.Dash, Sound.Dash_2, Sound.Dash_3, Sound.Dash_4 };
             return PlayClip(dictionary[sounds[Random.Range(0, sounds.Length)]]);
-            //return PlayClipAtPoint(dictionary[sounds[Random.Range(0, sounds.Length)]], pos, 100);
         case Sound.Sword_Kill:
             if (CanPlay(sound)) {
                 if (Time.realtimeSinceStartup - timers[sound] > .1f)
@@ -237,21 +203,11 @@ public static class Sound_Manager {
         case Sound.Sword:
             sounds = new[] { Sound.Sword, Sound.Sword_2, Sound.Sword_3, Sound.Sword_4, Sound.Sword_5, Sound.Sword_6, Sound.Sword_7 };
             return PlayClip(dictionary[sounds[Random.Range(0, sounds.Length)]]);
-            //return PlayClipAtPoint(dictionary[sounds[Random.Range(0, sounds.Length)]], pos, 100);
         case Sound.Footsteps_Hero:
             return PlayClipAtPoint(dictionary[sound], pos, true);
         case Sound.Footstep_Minion:
             sounds = new[] { Sound.Footstep_Minion, Sound.Footstep_Minion_2, Sound.Footstep_Minion_3, Sound.Footstep_Minion_4, Sound.Footstep_Minion_5, Sound.Footstep_Minion_6 };
             return PlayClipAtPoint(dictionary[sounds[Random.Range(0, sounds.Length)]], pos, 140, .5f * GetAudio(AudioType.Sound));
-        /*case Sound.Minion_Dead:
-            if (CanPlay(sound)) {
-                if (Time.realtimeSinceStartup - timers[sound] > .1f)
-                    timers[sound] = Time.realtimeSinceStartup - .05f;
-                timers[sound] += .01f;
-                sounds = new[] { Sound.Minion_Dead, Sound.Minion_Dead_2, Sound.Minion_Dead_3 };
-                return PlayClipAtPoint(dictionary[sounds[Random.Range(0, sounds.Length)]], pos);
-            }
-            return null;*/
         case Sound.Countered:
             sounds = new[] { Sound.Countered, Sound.Countered_2 };
             return PlayClipAtPoint(dictionary[sounds[Random.Range(0, sounds.Length)]], pos);
@@ -286,11 +242,6 @@ public static class Sound_Manager {
 
         case Sound.Rifle_Fire:
             if (!CanPlay(sound)) return null;
-            /*
-            if (Time.realtimeSinceStartup - timers[sound] > .1f)
-                timers[sound] = Time.realtimeSinceStartup - .03f;
-            timers[sound] += .01f;
-            */
             timers[sound] = Time.realtimeSinceStartup + Random.Range(.05f, .1f);
             sounds = new[] { Sound.Rifle_Fire_1, Sound.Rifle_Fire_2, Sound.Rifle_Fire_3, Sound.Rifle_Fire_4 };
             return PlayClipAtPoint(dictionary[sounds[Random.Range(0, sounds.Length)]], pos);
@@ -340,11 +291,10 @@ public static class Sound_Manager {
 	private static AudioSource PlayClipAtPoint(AudioClip clip, Vector3 pos, int priority, float vol, bool loop = false) {
 		GameObject tempGO = GetPooledObject();
 		AudioSource aSource = tempGO.GetComponent<AudioSource>();
-		tempGO.transform.position = pos; // set its position
-		aSource.clip = clip; // define the clip
+		tempGO.transform.position = pos;
+		aSource.clip = clip;
 		aSource.priority = priority;
-		// set other aSource properties here, if desired
-		aSource.spatialBlend = 1f;//0.5f;
+		aSource.spatialBlend = 1f;
         aSource.dopplerLevel = .0f;
         aSource.minDistance = 60;
         aSource.maxDistance = 400;
@@ -358,8 +308,8 @@ public static class Sound_Manager {
             aSource.loop = true;
             tempGO.SetActive(true);
         }
-		aSource.Play(); // start the sound
-		return aSource; // return the AudioSource reference
+		aSource.Play();
+		return aSource;
 	}
     public static void StopSound(AudioSource audioSource) {
         audioSource.Stop();
@@ -384,15 +334,11 @@ public static class Sound_Manager {
 	private static GameObject[] poolArr = null;
 	private static int poolAmount = 30;
     private static int poolAmountMax = 50;
-    /*public static void Init() {
-        PoolObjects();
-    }*/
+
 	public static void PoolObjects() {
-		//Init();
 		List<GameObject> poolList = new List<GameObject>();
 		for (int i=0; i<poolAmount; i++) {
-			GameObject tempGO = new GameObject("Pooled_Audio_"+i, typeof(AudioSource)); // create the temp object
-			//tempGO.AddComponent<AudioSource>(); // add an audio source
+			GameObject tempGO = new GameObject("Pooled_Audio_"+i, typeof(AudioSource));
 			tempGO.SetActive(false);
 			poolList.Add(tempGO);
 		}
@@ -406,11 +352,10 @@ public static class Sound_Manager {
 			}
 		}
         if (poolAmount >= poolAmountMax) {
-            // Maximum objects in pool, dont create more!
             return poolArr[Random.Range(0, poolArr.Length)];
         }
 		GameObject tempGO = new GameObject("Pooled_Audio_"+poolAmount, typeof(AudioSource)); // create the temp object
-		//tempGO.AddComponent<AudioSource>(); // add an audio source
+		//tempGO.AddComponent<AudioSource>();
 		tempGO.SetActive(false);
 		List<GameObject> poolList = new List<GameObject>(poolArr);
 		poolList.Add(tempGO);

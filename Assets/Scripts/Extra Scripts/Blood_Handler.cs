@@ -16,12 +16,11 @@ public class Blood_Handler {
 	private Vector3 pos = Vector3.zero;
 	private int index;
     private Generic_Mesh_Script meshScript;
-	//private static int layerMask = ~((1 << 10) | (1 << 2) | (1 << 12));
 	private static Vector3 baseSize = new Vector3(3f, 3f);
 
 	private static float deltaTime,deltaTime5;
     
-    private static GameObject initGameObject; // Global game object used for initializing class, is destroyed on scene change
+    private static GameObject initGameObject;
 
     private static void InitIfNeeded() {
         if (initGameObject == null) {
@@ -53,7 +52,6 @@ public class Blood_Handler {
     }
 	public static void SpawnBlood(int amt, Vector3 loc, Vector3 dir) {
         InitIfNeeded();
-		//Blood_Splatter.spawnSplatter(loc,dir);
         dir.Normalize();
 		Vector3 baseDir = dir;
 
@@ -70,7 +68,6 @@ public class Blood_Handler {
 
 			Vector3 velocity = dir.normalized;
 
-			//handler.speed = 13f * Random.Range(2f,7f);
             handler.speed = 20f * Random.Range(3f,6f);
 			handler.velocity = velocity;
 			handler.eulerY = Random.Range(0,360);

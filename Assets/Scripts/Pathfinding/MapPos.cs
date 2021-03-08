@@ -1,15 +1,3 @@
-/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
- 
 using System.Collections.Generic;
 
 namespace GridPathfindingSystem {
@@ -30,11 +18,9 @@ namespace GridPathfindingSystem {
             straightToOffset = _straightToOffset;
         }
         public bool Equals(MapPos p2) {
-            // Check if this one equals that one
             return x == p2.x && y == p2.y;
         }
         public bool EqualsDeep(MapPos p2) {
-            // Check if this one equals that one
             return x == p2.x && y == p2.y && offsetX == p2.offsetX && offsetY == p2.offsetY && straightToOffset == p2.straightToOffset;
         }
         public override string ToString() {
@@ -61,7 +47,6 @@ namespace GridPathfindingSystem {
             return System.Math.Abs(p1.x - p2.x) + System.Math.Abs(p1.y - p2.y);
         }
         public static bool ListContains(List<MapPos> list, MapPos mapPos) {
-            // Check if map pos is in list
             foreach (MapPos pos in list)
                 if (pos.Equals(mapPos))
                     return true;
@@ -69,7 +54,6 @@ namespace GridPathfindingSystem {
         }
 
         public string Save() {
-            // Returns a string to be used in savefiles
             string[] content = new string[]{
             ""+x,
             ""+y,
@@ -83,7 +67,6 @@ namespace GridPathfindingSystem {
             return new MapPos(save);
         }
         public MapPos(string save) {
-            // Loads a MapPos object form a given savefile string
             string[] content = save.Split(new string[] { "#MAPPOS#" }, System.StringSplitOptions.None);
             x = int.Parse(content[0]);
             y = int.Parse(content[1]);

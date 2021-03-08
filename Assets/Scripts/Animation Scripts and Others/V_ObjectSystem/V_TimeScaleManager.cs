@@ -53,15 +53,10 @@ namespace V_ObjectSystem {
             return Time.unscaledDeltaTime * deltaTimeModifierDic[timeType];
         }
         private static void UpdateTimeScale() {
-            // Get highest priority effect
             if (activeEffectsList.Count <= 0) {
-                // No effects
-                //Debug.Log("TimeScale Effect: "+"None"+", "+"1");
-                //GameHandler.FootstepsSoundResume();
                 timeScale = 1f;
                 V_Object.SetAllDeltaTimeModifier(timeScale);
             } else {
-                // Sort by priority
                 for (int i = 0; i < activeEffectsList.Count; i++) {
                     for (int j = i + 1; j < activeEffectsList.Count; j++) {
                         if (GetEffectPriority(activeEffectsList[j]) > GetEffectPriority(activeEffectsList[i])) {
@@ -73,7 +68,6 @@ namespace V_ObjectSystem {
                 }
                 ApplyEffect(activeEffectsList[0]);
             }
-            // Update individual time
             foreach (TimeType en in System.Enum.GetValues(typeof(TimeType))) {
                 deltaTimeModifierDic[en] = 1f;
             }
@@ -94,7 +88,6 @@ namespace V_ObjectSystem {
         }
         public static void AddEffect(Effect effect, bool stackEffects = true) {
             if (!stackEffects) {
-                // Don't stack
                 activeEffectsList.Remove(effect);
             }
             activeEffectsList.Add(effect);
@@ -165,9 +158,7 @@ namespace V_ObjectSystem {
                 break;
             }
             if (timeScale == 0f) {
-                //GameHandler.FootstepsSoundPause();
             } else {
-                //GameHandler.FootstepsSoundResume();
             }
             V_TimeScaleManager.timeScale = timeScale;
 

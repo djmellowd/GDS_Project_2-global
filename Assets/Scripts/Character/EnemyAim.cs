@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
- 
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using V_AnimationSystem;
@@ -87,7 +75,6 @@ public class EnemyAim : MonoBehaviour {
         WeaponTracer.Create(e.gunEndPointPosition, e.shootPosition);
         UtilsClass.ShakeCamera(.3f, .05f);
 
-        // Any hit? Player?
         RaycastHit2D raycastHit = Physics2D.Raycast(e.gunEndPointPosition, (e.shootPosition - e.gunEndPointPosition).normalized, Vector3.Distance(e.gunEndPointPosition, e.shootPosition));
         if (raycastHit.collider != null) {
             PlayerAim player = raycastHit.collider.gameObject.GetComponent<PlayerAim>();
@@ -135,15 +122,6 @@ public class EnemyAim : MonoBehaviour {
                     targetPosition += UtilsClass.GetRandomDir() * UnityEngine.Random.Range(0f, 20f);
                     characterBase.ShootTarget(targetPosition);
                 }
-                /*
-                state = State.Attacking;
-                Vector3 attackDir = (getEnemyTarget().GetPosition() - GetPosition()).normalized;
-                characterBase.ShootTarget(getEnemyTarget().GetPosition(), () => {
-                    if (getEnemyTarget() != null) {
-                        getEnemyTarget().Damage(this);
-                    }
-                }, SetStateNormal);
-                */
             } else {
                 if (Vector3.Distance(getEnemyTarget().GetPosition(), GetPosition()) < targetRange) {
                     if (pathfindingTimer <= 0f) {
@@ -174,14 +152,7 @@ public class EnemyAim : MonoBehaviour {
             characterBase.DestroySelf();
             Destroy(gameObject);
         } else {
-            // Knockback
             transform.position += bloodDir * 5f;
-            /*
-            if (hitUnitAnim != null) {
-                state = State.Busy;
-                enemyBase.PlayHitAnimation(bloodDir * (Vector2.one * -1f), SetStateNormal);
-            }
-            */
         }
     }
 
@@ -212,7 +183,6 @@ public class EnemyAim : MonoBehaviour {
 
     public void SetTargetPosition(Vector3 targetPosition) {
         currentPathIndex = 0;
-        //pathVectorList = GridPathfinding.instance.GetPathRouteWithShortcuts(GetPosition(), targetPosition).pathVectorList;
         pathVectorList = new List<Vector3> { targetPosition };
         if (pathVectorList != null && pathVectorList.Count > 1) {
             pathVectorList.RemoveAt(0);

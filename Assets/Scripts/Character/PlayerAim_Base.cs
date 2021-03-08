@@ -1,24 +1,9 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 using V_ObjectSystem;
 
-/*
- * Player Base Class
- * */
 public class PlayerAim_Base : MonoBehaviour {
 
     #region BaseSetup
@@ -186,24 +171,19 @@ public class PlayerAim_Base : MonoBehaviour {
     public void ShootTarget(Vector3 targetPosition) {
         SetAimTarget(targetPosition);
             
-        // Check for hits
         Vector3 gunEndPointPosition = vObject.GetLogic<V_UnitSkeleton>().GetBodyPartPosition("MuzzleFlash");
         RaycastHit2D raycastHit = Physics2D.Raycast(gunEndPointPosition, (targetPosition - gunEndPointPosition).normalized, Vector3.Distance(gunEndPointPosition, targetPosition));
         if (raycastHit.collider != null) {
-            // Hit something
             targetPosition = (Vector3)raycastHit.point + (targetPosition - gunEndPointPosition).normalized;
         }
 
         canShoot = false;
 
-        // Replace Body and Head with Attack
         unitSkeleton.ReplaceBodyPartSkeletonAnim(GameAssets.UnitAnimTypeEnum.dMarine_Attack.GetUnitAnim(aimDir), "Body", "Head");
-        // Shoot Composite Skeleton
         unitSkeletonCompositeWeapon.Shoot(targetPosition, () => {
             canShoot = true;
         });
 
-        // Add Effects
         Vector3 shootFlashPosition = vObject.GetLogic<V_UnitSkeleton>().GetBodyPartPosition("MuzzleFlash");
         if (OnShoot != null) OnShoot(this, new OnShootEventArgs { gunEndPointPosition = shootFlashPosition, shootPosition = targetPosition });
     }
@@ -212,11 +192,9 @@ public class PlayerAim_Base : MonoBehaviour {
         lastMoveDir = moveDir;
         bool isMoving = true;
 
-        // Update Feet
         unitSkeletonCompositeWalker_Feet.UpdateBodyParts(isMoving, moveDir);
 
         if (canShoot) {
-            // Update Head and Body parts only when Not Shooting
             unitSkeletonCompositeWalker_BodyHead.UpdateBodyParts(isMoving, aimDir);
         }
     }
@@ -224,11 +202,9 @@ public class PlayerAim_Base : MonoBehaviour {
     public void PlayIdleAnim() {
         bool isMoving = false;
 
-        // Update Feet
         unitSkeletonCompositeWalker_Feet.UpdateBodyParts(isMoving, lastMoveDir);
 
         if (canShoot) {
-            // Update Head and Body parts only when Not Shooting
             unitSkeletonCompositeWalker_BodyHead.UpdateBodyParts(isMoving, aimDir);
         }
     }

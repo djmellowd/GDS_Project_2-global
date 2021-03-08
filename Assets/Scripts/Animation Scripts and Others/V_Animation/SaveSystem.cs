@@ -6,9 +6,6 @@ using UnityEngine;
 
 namespace V_AnimationSystem {
 
-    /*
-     * Animation Save System
-     * */
     public static class SaveSystem {
 
 
@@ -112,18 +109,14 @@ namespace V_AnimationSystem {
             }
 
             public static byte[] Save(FileType fileType, string header, string save) {
-                // Convert header into bytes
                 byte fileTypeByte = (byte)fileType;
                 byte[] headerBytes = System.Text.Encoding.UTF8.GetBytes(header);
 
-                // Save 2 bytes for header length
                 short headerSize = (short)headerBytes.Length;
                 byte[] headerSizeBytes = System.BitConverter.GetBytes(headerSize);
 
-                // Get save bytes
                 byte[] saveBytes = System.Text.Encoding.UTF8.GetBytes(save);
 
-                // Merge all together
                 List<byte> totalBytes = new List<byte>();
                 totalBytes.Add(fileTypeByte);
                 totalBytes.AddRange(headerSizeBytes);
@@ -158,15 +151,12 @@ namespace V_AnimationSystem {
             Save(folderPath, saveName, fileType, saveString, out fileSaveBytes);
         }
         public static void Save(string folderPath, string saveName, FileData.FileType fileType, string saveString, out byte[] fileSaveBytes) {
-            // Save name containing extension
             string saveFile = folderPath + saveName;
             Save(saveFile, fileType, saveString, out fileSaveBytes);
         }
 
         public static void Save(string fullSavePath, FileData.FileType fileType, string saveString, out byte[] fileSaveBytes) {
-            // Save name containing extension
             string saveFile = fullSavePath;
-            //Compress Save
             string saveStringCompressed = GetCompressedString(saveString);
             string header = GetCompressedString(Save_Header(saveStringCompressed));
 
@@ -176,12 +166,9 @@ namespace V_AnimationSystem {
         }
 
         public static bool Load(string folderPath, string file, out FileData fileData) {
-            // Byte save
             return Load(folderPath + file, out fileData);
         }
         public static bool Load(string fullFilePath, out FileData fileData) {
-            // File name containing extension
-            // Assumes extension is 3 characters long
             byte[] readAllBytes = File.ReadAllBytes(fullFilePath);
 
             return Load(readAllBytes, out fileData);
@@ -200,7 +187,6 @@ namespace V_AnimationSystem {
 
 
         private static string Save_Header(string saveContent) {
-            //Returns a string to be used in savefiles
             return HeaderData.Save(saveContent);
         }
         private static HeaderData Load_Header(string header) {

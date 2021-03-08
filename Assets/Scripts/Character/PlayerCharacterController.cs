@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +34,6 @@ public class PlayerCharacterController : MonoBehaviour {
         cameraFov = playerCamera.GetComponent<CameraFov>();
         Cursor.lockState = CursorLockMode.Locked;
         state = State.Normal;
-        //hookshotTransform.gameObject.SetActive(false);
     }
 
     private void Update() {
@@ -55,7 +42,6 @@ public class PlayerCharacterController : MonoBehaviour {
         case State.Normal:
             HandleCharacterLook();
             HandleCharacterMovement();
-            //HandleHookshotStart();
             break;
         case State.HookshotThrown:
             HandleHookshotThrow();
@@ -73,16 +59,12 @@ public class PlayerCharacterController : MonoBehaviour {
         float lookX = Input.GetAxisRaw("Mouse X");
         float lookY = Input.GetAxisRaw("Mouse Y");
 
-        // Rotate the transform with the input speed around its local Y axis
         transform.Rotate(new Vector3(0f, lookX * mouseSensitivity, 0f), Space.Self);
 
-        // Add vertical inputs to the camera's vertical angle
         cameraVerticalAngle -= lookY * mouseSensitivity;
 
-        // Limit the camera's vertical angle to min/max
         cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -89f, 89f);
 
-        // Apply the vertical angle as a local rotation to the camera transform along its right axis (makes it pivot up and down)
         playerCamera.transform.localEulerAngles = new Vector3(cameraVerticalAngle, 0, 0);
     }
 
@@ -103,21 +85,16 @@ public class PlayerCharacterController : MonoBehaviour {
             }
         }
 
-        // Apply gravity to the velocity
         float gravityDownForce = -60f;
         characterVelocityY += gravityDownForce * Time.deltaTime;
 
 
-        // Apply Y velocity to move vector
         characterVelocity.y = characterVelocityY;
 
-        // Apply momentum
         characterVelocity += characterVelocityMomentum;
 
-        // Move Character Controller
         characterController.Move(characterVelocity * Time.deltaTime);
 
-        // Dampen momentum
         if (characterVelocityMomentum.magnitude > 0f) {
             float momentumDrag = 3f;
             characterVelocityMomentum -= characterVelocityMomentum * momentumDrag * Time.deltaTime;
@@ -134,7 +111,6 @@ public class PlayerCharacterController : MonoBehaviour {
     private void HandleHookshotStart() {
         if (TestInputDownHookshot()) {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit)) {
-                // Hit something
                 debugHitPointTransform.position = raycastHit.point;
                 hookshotPosition = raycastHit.point;
                 hookshotSize = 0f;
@@ -168,22 +144,18 @@ public class PlayerCharacterController : MonoBehaviour {
         float hookshotSpeed = Mathf.Clamp(Vector3.Distance(transform.position, hookshotPosition), hookshotSpeedMin, hookshotSpeedMax);
         float hookshotSpeedMultiplier = 5f;
 
-        // Move Character Controller
         characterController.Move(hookshotDir * hookshotSpeed * hookshotSpeedMultiplier * Time.deltaTime);
 
         float reachedHookshotPositionDistance = 1f;
         if (Vector3.Distance(transform.position, hookshotPosition) < reachedHookshotPositionDistance) {
-            // Reached Hookshot Position
             StopHookshot();
         }
 
         if (TestInputDownHookshot()) {
-            // Cancel Hookshot
             StopHookshot();
         }
 
         if (TestInputJump()) {
-            // Cancelled with Jump
             float momentumExtraSpeed = 7f;
             characterVelocityMomentum = hookshotDir * hookshotSpeed * momentumExtraSpeed;
             float jumpSpeed = 40f;

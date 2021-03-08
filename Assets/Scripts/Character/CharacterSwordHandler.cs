@@ -1,24 +1,8 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 
-/*
- * Player movement with Arrow keys
- * Attack with Space
- * */
 public class CharacterSwordHandler : MonoBehaviour, EnemyHandler.IEnemyTargetable {
 
     private const float speed = 50f;
@@ -105,7 +89,6 @@ public class CharacterSwordHandler : MonoBehaviour, EnemyHandler.IEnemyTargetabl
         }
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-            // Attack
             SetStateBusy();
 
             EnemyHandler enemyHandler = EnemyHandler.GetClosestEnemy(GetPosition() + attackDir * 4f, 20f);
@@ -117,12 +100,6 @@ public class CharacterSwordHandler : MonoBehaviour, EnemyHandler.IEnemyTargetabl
                 transform.position = transform.position + attackDir * 4f;
             }
 
-            /*
-            unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_PunchStartup"), attackDir, 2f, (UnitAnim unitAnim) => {
-                unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_PunchQuickAttack"), attackDir, 1f, (UnitAnim unitAnim2) => SetStateNormal(), null, null);
-            }, null, null);
-            */
-
             UnitAnimType activeAnimType = unitAnimation.GetActiveAnimType();
             switch (activeAnimType.GetName()) {
             default:
@@ -132,21 +109,6 @@ public class CharacterSwordHandler : MonoBehaviour, EnemyHandler.IEnemyTargetabl
                 unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_KickQuick"), attackDir, 1f, (UnitAnim unitAnim2) => SetStateNormal(), null, null);
                 break;
             }
-
-            //unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_PunchQuickAttack"), attackDir, 1f, (UnitAnim unitAnim2) => SetStateNormal(), null, null);
-
-            /*
-            Transform swordSlashTransform = Instantiate(GameAssets.i.pfSwordSlash, GetPosition() + attackDir * 13f, Quaternion.Euler(0, 0, UtilsClass.GetAngleFromVector(attackDir)));
-            swordSlashTransform.GetComponent<SpriteAnimator>().onLoop = () => Destroy(swordSlashTransform.gameObject);
-
-            UnitAnimType activeAnimType = unitAnimation.GetActiveAnimType();
-            if (activeAnimType == GameAssets.UnitAnimTypeEnum.dSwordTwoHandedBack_Sword) {
-                swordSlashTransform.localScale = new Vector3(swordSlashTransform.localScale.x, swordSlashTransform.localScale.y * -1, swordSlashTransform.localScale.z);
-                unitAnimation.PlayAnimForced(GameAssets.UnitAnimTypeEnum.dSwordTwoHandedBack_Sword2, attackDir, 1f, (UnitAnim unitAnim) => SetStateNormal(), null, null);
-            } else {
-                unitAnimation.PlayAnimForced(GameAssets.UnitAnimTypeEnum.dSwordTwoHandedBack_Sword, attackDir, 1f, (UnitAnim unitAnim) => SetStateNormal(), null, null);
-            }
-            */
         }
     }
 

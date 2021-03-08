@@ -1,23 +1,8 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using V_AnimationSystem;
 
-/*
- * Character moves between waypoints
- * */
 public class CharacterWaypointsHandler : MonoBehaviour {
         
     private const float speed = 30f;
@@ -83,18 +68,13 @@ public class CharacterWaypointsHandler : MonoBehaviour {
         float viewDistance = 50f;
         float fov = 180f;
         if (Vector3.Distance(GetPosition(), player.GetPosition()) < viewDistance) {
-            // Player inside viewDistance
             Vector3 dirToPlayer = (player.GetPosition() - GetPosition()).normalized;
             if (Vector3.Angle(GetAimDir(), dirToPlayer) < fov / 2f) {
-                // Player inside Field of View
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(GetPosition(), dirToPlayer, viewDistance);
                 if (raycastHit2D.collider != null) {
-                    // Hit something
                     if (raycastHit2D.collider.gameObject.GetComponent<PlayerMovement>() != null) {
-                        // Hit Player
                         StartAttackingPlayer();
                     } else {
-                        // Hit something else
                     }
                 }
             }
@@ -113,14 +93,12 @@ public class CharacterWaypointsHandler : MonoBehaviour {
         lastMoveDir = dirToTarget;
 
         unitAnimation.PlayAnimForced(attackUnitAnim, dirToTarget, 2f, (UnitAnim unitAnim) => {
-            // Attack complete
             if (player.IsDead()) {
                 state = State.Moving;
             } else {
                 state = State.AttackingPlayer;
             }
         }, (string trigger) => {
-            // Damage Player
             player.Damage(this);
         }, null);
         

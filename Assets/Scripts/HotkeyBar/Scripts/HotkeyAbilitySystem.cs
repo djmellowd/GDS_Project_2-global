@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +16,6 @@ public class HotkeyAbilitySystem {
         ManaPotion,
     }
 
-    //private PlayerSwapWeapons player;
     private List<HotkeyAbility> hotkeyAbilityList;
     private List<HotkeyAbility> extraHotkeyAbilityList;
 
@@ -36,17 +23,15 @@ public class HotkeyAbilitySystem {
         hotkeyAbilityList = new List<HotkeyAbility>();
         extraHotkeyAbilityList = new List<HotkeyAbility>();
 
-        // Health Potion
         hotkeyAbilityList.Add(new HotkeyAbility {
             abilityType = AbilityType.HealthPotion,
-            activateAbilityAction = () => { }// player.ConsumeHealthPotion()
+            activateAbilityAction = () => { }
         });
 
         
-        // Mana Potion
         extraHotkeyAbilityList.Add(new HotkeyAbility { 
             abilityType = AbilityType.ManaPotion, 
-            activateAbilityAction = () => { }// player.ConsumeManaPotion()
+            activateAbilityAction = () => { }
         });
     }
 
@@ -85,7 +70,6 @@ public class HotkeyAbilitySystem {
     
     public void SwapAbility(HotkeyAbility hotkeyAbilityA, HotkeyAbility hotkeyAbilityB) {
         if (extraHotkeyAbilityList.Contains(hotkeyAbilityA)) {
-            // A is on Extra List
             int indexB = hotkeyAbilityList.IndexOf(hotkeyAbilityB);
             hotkeyAbilityList[indexB] = hotkeyAbilityA;
 
@@ -93,14 +77,12 @@ public class HotkeyAbilitySystem {
             extraHotkeyAbilityList.Add(hotkeyAbilityB);
         } else {
             if (extraHotkeyAbilityList.Contains(hotkeyAbilityB)) {
-                // B is on the Extra List
                 int indexA = hotkeyAbilityList.IndexOf(hotkeyAbilityA);
                 hotkeyAbilityList[indexA] = hotkeyAbilityB;
 
                 extraHotkeyAbilityList.Remove(hotkeyAbilityB);
                 extraHotkeyAbilityList.Add(hotkeyAbilityA);
             } else {
-                // Neither are on the Extra List
                 int indexA = hotkeyAbilityList.IndexOf(hotkeyAbilityA);
                 int indexB = hotkeyAbilityList.IndexOf(hotkeyAbilityB);
                 HotkeyAbility tmp = hotkeyAbilityList[indexA];
@@ -112,9 +94,6 @@ public class HotkeyAbilitySystem {
         OnAbilityListChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    /*
-     * Represents a single Hotkey Ability of any Type
-     * */
     public class HotkeyAbility {
         public AbilityType abilityType;
         public Action activateAbilityAction;
@@ -122,7 +101,7 @@ public class HotkeyAbilitySystem {
         public Sprite GetSprite() {
             switch (abilityType) {
             default:
-            case AbilityType.HealthPotion:  return null;// Testing.Instance.healthPotionSprite;
+            case AbilityType.HealthPotion:  return null;
             }
         }
 

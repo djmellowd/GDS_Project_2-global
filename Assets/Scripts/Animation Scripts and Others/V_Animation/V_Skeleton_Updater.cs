@@ -9,7 +9,6 @@ namespace V_AnimationSystem {
 
         private int id;
 
-        //private List<V_Skeleton_Anim> tmpAnims;
         public Dictionary<string, V_Skeleton_Anim> bodyPartNameAnimDic;
 
         private Mesh mesh;
@@ -58,13 +57,11 @@ namespace V_AnimationSystem {
             }
         }
         public void SetFramesToSame(V_Skeleton_Anim[] previousAnims) {
-            //Set frames to same
             for (int j = 0; j < previousAnims.Length; j++) {
                 V_Skeleton_Anim anim = previousAnims[j];
                 for (int i = 0; i < previousAnims.Length; i++) {
                     V_Skeleton_Anim newAnim = anims[i];
                     if (anim.bodyPart.Equals(newAnim.bodyPart)) {
-                        //Same bodyPart
                         newAnim.SetCurrentFrame(anim.GetCurrentFrameNumberIndex());
                     }
                 }
@@ -96,7 +93,6 @@ namespace V_AnimationSystem {
             List<V_Skeleton_Anim> animList = new List<V_Skeleton_Anim>(anims);
             for (int i = 0; i < animList.Count; i++) {
                 if (animList[i].bodyPart.customName == bodyPartName) {
-                    // Remove this anim
                     animList.RemoveAt(i);
                     i--;
                 }
@@ -166,7 +162,6 @@ namespace V_AnimationSystem {
                 trianglesIndex = trianglesIndex + 6;
             }
 
-            //mesh.triangles = null;
             mesh.Clear();
             mesh.vertices = verticesArr;
             mesh.uv = uvsArr;

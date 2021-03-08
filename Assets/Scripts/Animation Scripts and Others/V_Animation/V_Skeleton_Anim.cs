@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 namespace V_AnimationSystem {
 
-    /*
-     * Contains the Frames for an animation for a Body Part
-     * */
     public class V_Skeleton_Anim {
 
         public V_Skeleton_Frame[] frames;
@@ -95,7 +92,6 @@ namespace V_AnimationSystem {
             List<string> ret = new List<string>();
             foreach (V_Skeleton_Frame frame in frames) {
                 if (!string.IsNullOrEmpty(frame.trigger)) {
-                    // Has trigger
                     ret.Add(frame.trigger);
                 }
             }
@@ -134,7 +130,6 @@ namespace V_AnimationSystem {
             int initSortingOrder = frames[0].sortingOrder;
             foreach (V_Skeleton_Frame frame in frames) {
                 if (frame.sortingOrder != initSortingOrder) {
-                    // Different sorting order
                     return true;
                 }
             }
@@ -209,14 +204,12 @@ namespace V_AnimationSystem {
         public void AddKeyframe() {
             List<V_Skeleton_Frame> newFrames = new List<V_Skeleton_Frame>(frames);
             if (currentAnimFrame.frameCount != -1) {
-                //Is keyframe, duplicate this one
                 V_Skeleton_Frame cloned = currentAnimFrame.CloneNew();
                 newFrames.Insert(newFrames.IndexOf(currentAnimFrame) + 1, cloned);
                 SetFrames(newFrames.ToArray());
                 currentFrame = System.Array.IndexOf(frames, cloned);
                 currentAnimFrame = newFrames[currentFrame];
             } else {
-                //Not keyframe, clone last keyframe
                 List<V_Skeleton_Frame> keyframes = GetKeyframes();
                 V_Skeleton_Frame cloned = keyframes[keyframes.Count - 1].CloneNew();
                 newFrames.Add(cloned);
@@ -229,7 +222,6 @@ namespace V_AnimationSystem {
         public void DeleteKeyframe() {
             List<V_Skeleton_Frame> keyframes = GetKeyframes();
             if (currentAnimFrame.frameCount != -1) {
-                //Is keyframe, delete
                 keyframes.Remove(currentAnimFrame);
                 SetFrames(keyframes.ToArray());
                 RemakeTween();
@@ -244,14 +236,11 @@ namespace V_AnimationSystem {
             currentAnimFrame = frames[currentFrame];
         }
         public void SelectKeyframeRight() {
-            //Look for next keyframe
             if (GetKeyframes().Count > 1) {
-                //Theres more than one Keyframe
                 int newFrameIndex = (currentFrame + 1) % frames.Length;
                 while (newFrameIndex != currentFrame) {
                     V_Skeleton_Frame frame = frames[newFrameIndex];
                     if (frame.frameCount != -1) {
-                        //Is keyframe, select this one
                         currentFrame = newFrameIndex;
                         currentAnimFrame = frames[currentFrame];
                         break;
@@ -261,15 +250,12 @@ namespace V_AnimationSystem {
             }
         }
         public void SelectKeyframeLeft() {
-            //Look for next keyframe
             if (GetKeyframes().Count > 1) {
-                //Theres more than one Keyframe
                 int newFrameIndex = currentFrame - 1;
                 if (newFrameIndex < 0) newFrameIndex = frames.Length - 1;
                 while (newFrameIndex != currentFrame) {
                     V_Skeleton_Frame frame = frames[newFrameIndex];
                     if (frame.frameCount != -1) {
-                        //Is keyframe, select this one
                         currentFrame = newFrameIndex;
                         currentAnimFrame = frames[currentFrame];
                         break;
@@ -280,14 +266,12 @@ namespace V_AnimationSystem {
             }
         }
         public V_Skeleton_Anim CloneDeep() {
-            // Deep copy, clones every individual frame
             List<V_Skeleton_Frame> framesList = new List<V_Skeleton_Frame>();
             foreach (V_Skeleton_Frame frame in frames)
                 framesList.Add(frame.Clone());
             return new V_Skeleton_Anim(framesList.ToArray(), bodyPart, frameRate);
         }
         public V_Skeleton_Anim Clone() {
-            // Shallow Copy, does not clone frames
             return new V_Skeleton_Anim(frames, bodyPart, frameRate);
         }
         public V_Skeleton_Anim CloneOnlyKeyframes() {
@@ -315,7 +299,6 @@ namespace V_AnimationSystem {
             foreach (V_Skeleton_Frame keyframe in keyframes) keyframe.RefreshVertices();
             SetFrames(V_Skeleton_Frame.Smooth(keyframes.ToArray()));
             if (keyframes.IndexOf(currentAnimFrame) != -1) {
-                //Currently selected keyframe, keep selection
                 currentFrame = System.Array.IndexOf(frames, currentAnimFrame);
             } else {
                 currentFrame = 0;
@@ -348,17 +331,10 @@ namespace V_AnimationSystem {
             RemakeTween();
         }
 
-
-
-
-
-
-
         public static string Save_Static(V_Skeleton_Anim single) {
             return single.Save();
         }
         public string Save() {
-            // Returns a string to be used in savefiles
             string[] content = new string[]{
             ""+bodyPart.Save(),
             "",

@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +18,6 @@ public class CharacterAimHandler : MonoBehaviour, EnemyHandler.IEnemyTargetable 
     private bool isMoving;
     private Vector3 moveDir;
 
-	// Use this for initialization
 	private void Start () {
         V_Object vObject = CreateBasicUnit(transform, new Vector3(500, 680), 30f, GameAssets.i.m_MarineSpriteSheet);
         V_UnitAnimation unitAnimation = vObject.GetLogic<V_UnitAnimation>();
@@ -53,11 +40,9 @@ public class CharacterAimHandler : MonoBehaviour, EnemyHandler.IEnemyTargetable 
             Vector3 targetPosition = UtilsClass.GetMouseWorldPosition();
             Vector3 aimDir = (targetPosition - vObject.GetPosition()).normalized;
             
-            // Check for hits
             Vector3 gunEndPointPosition = vObject.GetLogic<V_UnitSkeleton>().GetBodyPartPosition("MuzzleFlash");
             RaycastHit2D raycastHit = Physics2D.Raycast(gunEndPointPosition, (targetPosition - gunEndPointPosition).normalized, Vector3.Distance(gunEndPointPosition, targetPosition));
             if (raycastHit.collider != null) {
-                // Hit something
                 targetPosition = raycastHit.point;
             }
 
@@ -66,23 +51,15 @@ public class CharacterAimHandler : MonoBehaviour, EnemyHandler.IEnemyTargetable 
             if (canShoot && Input.GetMouseButton(0)) {
                 // Shoot
                 canShoot = false;
-                // Replace Body and Head with Attack
                 unitSkeleton.ReplaceBodyPartSkeletonAnim(GameAssets.UnitAnimTypeEnum.dMarine_Attack.GetUnitAnim(aimDir), "Body", "Head");
-                // Shoot Composite Skeleton
                 unitSkeletonCompositeWeapon.Shoot(targetPosition, () => {
                     canShoot = true;
                 });
 
-                // Add Effects
                 Vector3 shootFlashPosition = vObject.GetLogic<V_UnitSkeleton>().GetBodyPartPosition("MuzzleFlash");
                 if (OnShoot != null) OnShoot(this, new OnShootEventArgs { gunEndPointPosition = shootFlashPosition, shootPosition = targetPosition });
-
-                //Shoot_Flash.AddFlash(shootFlashPosition);
-                //WeaponTracer.Create(shootFlashPosition, targetPosition);
             }
 
-
-            // Manual Movement
             isMoving = false;
             moveDir = new Vector3(0, 0);
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
@@ -101,12 +78,9 @@ public class CharacterAimHandler : MonoBehaviour, EnemyHandler.IEnemyTargetable 
 
             float moveSpeed = 50f;
             Vector3 targetMoveToPosition = objectTransform.GetPosition() + moveDir * moveSpeed * Time.deltaTime;
-            // Test if can move there
             raycastHit = Physics2D.Raycast(GetPosition() + moveDir * .1f, moveDir, Vector3.Distance(GetPosition(), targetMoveToPosition));
             if (raycastHit.collider != null) {
-                // Hit something
             } else {
-                // Can move, no wall
                 objectTransform.SetPosition(targetMoveToPosition);
             }
 
@@ -114,12 +88,9 @@ public class CharacterAimHandler : MonoBehaviour, EnemyHandler.IEnemyTargetable 
                 Dirt_Handler.SpawnInterval(GetPosition(), moveDir * -1f);
             }
             
-
-            // Update Feet
             unitSkeletonCompositeWalker_Feet.UpdateBodyParts(isMoving, moveDir);
 
             if (canShoot) {
-                // Update Head and Body parts only when Not Shooting
                 unitSkeletonCompositeWalker_BodyHead.UpdateBodyParts(isMoving, aimDir);
             }
         });	
@@ -144,7 +115,6 @@ public class CharacterAimHandler : MonoBehaviour, EnemyHandler.IEnemyTargetable 
     public void Damage(Vector3 attackerPosition) {
         Vector3 bloodDir = (GetPosition() - attackerPosition).normalized;
         Blood_Handler.SpawnBlood(GetPosition(), bloodDir);
-        // Knockback
         transform.position += bloodDir * 3f;
     }
 

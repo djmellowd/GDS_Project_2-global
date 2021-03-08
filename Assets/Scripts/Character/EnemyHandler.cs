@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -98,12 +86,9 @@ public class EnemyHandler : MonoBehaviour {
         hitUnitAnim = UnitAnimType.GetUnitAnimType("dBareHands_Hit");
         attackUnitAnim = UnitAnimType.GetUnitAnimType("dBareHands_Punch");
 
-        //animatedWalker = new AnimatedWalker(unitAnimation, UnitAnimType.GetUnitAnimType("dMinion_Idle"), UnitAnimType.GetUnitAnimType("dMinion_Walk"), 1f, 1f);
         animatedWalker = new AnimatedWalker(unitAnimation, idleUnitAnim, walkUnitAnim, 1f, 1f);
 
         bodyTransform.GetComponent<MeshRenderer>().material = GameAssets.i.m_MarineSpriteSheet;
-        //unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_AttackPose"), 1f, null, null, null);
-        //state = State.Busy;
     }
 
     public void SetGetTarget(Func<IEnemyTargetable> getEnemyTarget) {
@@ -132,10 +117,8 @@ public class EnemyHandler : MonoBehaviour {
                 StopMoving();
                 state = State.Busy;
                 unitAnimation.PlayAnimForced(attackUnitAnim, 1f, (UnitAnim unitAnim) => {
-                    // Attack complete
                     state = State.Normal;
                 }, (string trigger) => {
-                    // Damage Player
                     getEnemyTarget().Damage(this);
                 }, null);
             } else {
@@ -159,13 +142,11 @@ public class EnemyHandler : MonoBehaviour {
 
     public void Damage(IEnemyTargetable attacker) {
         Vector3 bloodDir = (GetPosition() - attacker.GetPosition()).normalized;
-        //Blood_Handler.SpawnBlood(GetPosition(), bloodDir);
         health--;
         if (IsDead()) {
             FlyingBody.Create(GameAssets.i.pfEnemyFlyingBody, GetPosition(), bloodDir);
             Destroy(gameObject);
         } else {
-            // Knockback
             transform.position += bloodDir * 5f;
             if (hitUnitAnim != null) {
                 state = State.Busy;

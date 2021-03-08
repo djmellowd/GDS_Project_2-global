@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +22,6 @@ public class SwordAttack : MonoBehaviour, IAttack {
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            //Attack();
         }
     }
 
@@ -54,10 +41,6 @@ public class SwordAttack : MonoBehaviour, IAttack {
     public void Attack(Vector3 attackDir, Action onAttackComplete) {
         // Attack
         SetStateAttacking();
-            
-        //Vector3 attackDir = (UtilsClass.GetMouseWorldPosition() - GetPosition()).normalized;
-
-        //transform.position = transform.position + attackDir * 4f;
 
         Transform swordSlashTransform = Instantiate(GameAssets.i.pfSwordSlash, GetPosition() + attackDir * 13f, Quaternion.Euler(0, 0, UtilsClass.GetAngleFromVector(attackDir)));
         swordSlashTransform.GetComponent<SpriteAnimator>().onLoop = () => Destroy(swordSlashTransform.gameObject);

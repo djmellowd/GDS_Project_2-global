@@ -7,9 +7,6 @@ namespace V_ObjectSystem {
 
     public static class V_Main {
         
-        /*
-         * Class to hook Actions into MonoBehaviour
-         * */
         private class MonoBehaviourHook : MonoBehaviour {
             
             public Action OnUpdate;
@@ -38,7 +35,6 @@ namespace V_ObjectSystem {
 
         public static void Init() {
             if (monoBehaviourHook != null) {
-                // Already initialized
                 return;
             }
             V_TimeScaleManager.Init();
@@ -66,7 +62,6 @@ namespace V_ObjectSystem {
             updateTimeModDic[updateType] = mod;
         }
 
-        // Manually trigger Update
         public static void TriggerFakeUpdate(float deltaTime) {
             Update(deltaTime);
         }
@@ -80,7 +75,6 @@ namespace V_ObjectSystem {
                 for (int i = 0; i < tmpOnUpdateList.Count; i++) tmpOnUpdateList[i](deltaTime * updateTimeModDic[updateType]);
             }
 
-            // Update V_Object's
             V_Object.Static_Update(deltaTime, updateTimeModDic);
 
             foreach (UpdateType updateType in updateTypeArr) {

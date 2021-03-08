@@ -24,10 +24,8 @@ public class AnimatedWalker {
 
     public void SetMoveVector(Vector3 moveVector) {
         if (moveVector == Vector3.zero) {
-            // Idle
             unitAnimation.PlayAnim(idleAnimType, lastMoveVector, idleFrameRate, null, null, null);
         } else {
-            // Moving
             lastMoveVector = moveVector;
             unitAnimation.PlayAnim(walkAnimType, lastMoveVector, walkFrameRate, null, null, null);
         }

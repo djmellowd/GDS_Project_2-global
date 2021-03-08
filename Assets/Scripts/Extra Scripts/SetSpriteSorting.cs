@@ -17,9 +17,7 @@ public class SetSpriteSorting : MonoBehaviour {
     #if UNITY_EDITOR
 	void Update () {
 		if(UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode) {
-			//this.enabled = false;
 		} else {
-			// editor code here!
             Refresh();
 		}
 	}

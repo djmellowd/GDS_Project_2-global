@@ -12,9 +12,8 @@ namespace V_AnimationSystem {
 
         public const string VALID_NAME_DIC = "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ0123456789_";
 
-        // Anim Type, contains directional anims
         private string name;
-        private bool disableOverwrite; // Cannot overwrite default animations
+        private bool disableOverwrite;
         private Dictionary<UnitAnim.AnimDir, UnitAnim> singleAnimDic;
 
         private UnitAnimType(string name) {
@@ -27,7 +26,6 @@ namespace V_AnimationSystem {
         }
         public void SetName(string name) {
             if (!CanOverwrite()) {
-                // Cannot overwrite! Cannot change name!
                 return;
             }
             this.name = name;
@@ -127,7 +125,6 @@ namespace V_AnimationSystem {
             return name + ": " + anims;
         }
         public string Save_Linked() {
-            //Returns a string to be used in savefiles
             string[] content = new string[]{
             name,
             ""+singleAnimDic[UnitAnim.AnimDir.Down],
@@ -165,7 +162,6 @@ namespace V_AnimationSystem {
 
 
         public string Save() {
-            //Returns a string to be used in savefiles
             string[] content = new string[]{
             name,
             singleAnimDic[UnitAnim.AnimDir.Down].Save(),
@@ -221,8 +217,6 @@ namespace V_AnimationSystem {
         public static void Init() {
             if (unitAnimTypeList != null) return;
             isDirty = false;
-            // Load all anim types
-            // Called after UnitAnim.Init();
             unitAnimTypeList = new List<UnitAnimType>();
 
             if (V_Animation.DATA_LOCATION == V_Animation.DataLocation.Assets) {
@@ -237,17 +231,14 @@ namespace V_AnimationSystem {
         }
 
         private static void LoadFromDataFolder() {
-            // Load Default Animations
             DirectoryInfo defaultDir = new DirectoryInfo(V_Animation.LOC_DEFAULT_ANIMATIONTYPES);
             List<FileInfo> defaultFileInfoList = new List<FileInfo>(defaultDir.GetFiles("*." + V_Animation.fileExtention_AnimationType));
             foreach (FileInfo fileInfo in defaultFileInfoList) {
                 string readAllText;
                 SaveSystem.FileData fileData;
                 if (SaveSystem.Load(V_Animation.LOC_DEFAULT_ANIMATIONTYPES, fileInfo.Name, out fileData)) {
-                    // Loaded!
                     readAllText = fileData.save;
                 } else {
-                    // Load failed!
                     continue;
                 }
                 UnitAnimType unitAnimType = UnitAnimType.Load_Linked(readAllText);
@@ -264,10 +255,8 @@ namespace V_AnimationSystem {
                 string readAllText;
                 SaveSystem.FileData fileData;
                 if (SaveSystem.Load(V_Animation.LOC_ANIMATIONTYPES, fileInfo.Name, out fileData)) {
-                    // Loaded!
                     readAllText = fileData.save;
                 } else {
-                    // Load failed!
                     continue;
                 }
                 UnitAnimType unitAnimType = UnitAnimType.Load_Linked(readAllText);
@@ -276,27 +265,20 @@ namespace V_AnimationSystem {
         }
         
         private static void LoadFromResources() {
-            //TextAsset animationResourceTreeTextAsset = Resources.Load<TextAsset>("AnimationData/animationResourceTreeTextAsset");
-            //string folderCSV = animationResourceTreeTextAsset.text;
             string folderCSV = "_Default/AnimationTypes,AnimationTypes";
 
             string[] folderArr = V_Animation.SplitString(folderCSV, ",");
             foreach (string folder in folderArr) {
                 if (folder != "") {
-                    // Load resources in folder
                     TextAsset[] textAssetArr = Resources.LoadAll<TextAsset>("AnimationData/" + folder);
-                    //Debug.Log("AnimationTypes folder: "+folder+"; Found AnimationTypes: "+ textAssetArr.Length);
                     foreach (TextAsset textAsset in textAssetArr) {
-                        //Debug.Log("Loading: "+textAsset.name);
                         byte[] byteArr = textAsset.bytes;
 
                         string readAllText;
                         SaveSystem.FileData fileData;
                         if (SaveSystem.Load(byteArr, out fileData)) {
-                            // Loaded!
                             readAllText = fileData.save;
                         } else {
-                            // Load failed!
                             readAllText = null;
                         }
 
@@ -307,26 +289,16 @@ namespace V_AnimationSystem {
             }
         }
 
-
-
-
-
-
         public static string LoadAnimTypeString(string fileNameWithExtension) {
             string readAllText;
             SaveSystem.FileData fileData;
             if (SaveSystem.Load(V_Animation.LOC_ANIMATIONTYPES, fileNameWithExtension, out fileData)) {
-                // Loaded!
                 readAllText = fileData.save;
             } else {
-                // Load failed!
                 return null;
             }
             return readAllText;
         }
-
-
-
 
         public static UnitAnimType GetUnitAnimType(string unitAnimTypeName) {
             V_Animation.Init();
@@ -342,17 +314,8 @@ namespace V_AnimationSystem {
             return unitAnimTypeList;
         }
 
-
-
-
-
-        /*
-         * Helper class for making fake enums that get auto converted to UnitAnimType
-         * Usage: PlayAnim(UnitAnimTypeEnum.IdleDown);
-         */
         public class BaseUnitAnimTypeEnum {
 
-            // Add extra fake enums here
             public static BaseUnitAnimTypeEnum IdleDown { get { return new BaseUnitAnimTypeEnum(MethodBase.GetCurrentMethod()); } }
             public static UnitAnimType _Test2 = new BaseUnitAnimTypeEnum(MethodBase.GetCurrentMethod());
 
@@ -365,8 +328,6 @@ namespace V_AnimationSystem {
 
             public static implicit operator UnitAnimType(BaseUnitAnimTypeEnum unitAnimTypeEnum) { return UnitAnimType.GetUnitAnimType(unitAnimTypeEnum.str); }
         }
-
-
         
         private class UnitAnimTypeEnum {
 
@@ -378,9 +339,6 @@ namespace V_AnimationSystem {
                     }
                 }
             }
-
-            //public static UnitAnimType ArrowAttack;
-
         }
 
 

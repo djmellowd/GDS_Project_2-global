@@ -1,24 +1,8 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 
-/*
- * Player movement with Arrow keys
- * Attack with Space
- * */
 public class PlayerSword : MonoBehaviour {
     
     public static PlayerSword instance;
@@ -53,7 +37,6 @@ public class PlayerSword : MonoBehaviour {
     private void Update() {
         switch (state) {
         case State.Normal:
-            //HandleMovement();
             HandleAttack();
             break;
         case State.Attacking:
@@ -78,44 +61,14 @@ public class PlayerSword : MonoBehaviour {
         playerMain.PlayerMovementHandler.Disable();
     }
 
-    /*
-    private void HandleMovement() {
-        float moveX = 0f;
-        float moveY = 0f;
-        
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
-            moveY = +1f;
-        }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
-            moveY = -1f;
-        }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
-            moveX = -1f;
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
-            moveX = +1f;
-        }
-
-        Vector3 moveDir = new Vector3(moveX, moveY).normalized;
-        bool isIdle = moveX == 0 && moveY == 0;
-        if (isIdle) {
-            characterBase.PlayIdleAnim();
-        } else {
-            characterBase.PlayMoveAnim(moveDir);
-            transform.position += moveDir * SPEED * Time.deltaTime;
-        }
-    }
-    */
     private void HandleAttack() {
         if (Input.GetMouseButtonDown(0)) {
-            // Attack
             SetStateAttacking();
             
             Vector3 attackDir = (UtilsClass.GetMouseWorldPosition() - GetPosition()).normalized;
 
             EnemyHandler enemyHandler = EnemyHandler.GetClosestEnemy(GetPosition() + attackDir * 4f, 20f);
             if (enemyHandler != null) {
-                //enemyHandler.Damage(this);
                 if (enemyHandler.IsDead()) {
                     OnEnemyKilled?.Invoke(this, EventArgs.Empty);
                 }

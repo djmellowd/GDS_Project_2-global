@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
- 
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using V_AnimationSystem;
@@ -28,15 +16,7 @@ public class PlayerLookAt : MonoBehaviour {
     }
 
     private void Update() {
-        //HandleLookAtMouse();
         HandleMovement();
-
-        /*
-        if (Input.GetMouseButtonDown(0)) {
-            transform.Find("Aim").GetComponent<Animator>().SetTrigger("Shoot");
-            ShellParticleSystemHandler.Instance.SpawnShell(GetPosition(), (lookAtPosition - GetPosition()).normalized);
-        }
-        */
     }
     
     private void HandleLookAtMouse() {

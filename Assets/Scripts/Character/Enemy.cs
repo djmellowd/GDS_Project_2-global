@@ -1,24 +1,9 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 
-/*
- * Enemy
- * */
 public class Enemy : MonoBehaviour {
     
     public interface IEnemyTargetable {
@@ -85,12 +70,6 @@ public class Enemy : MonoBehaviour {
     }
 
     private void Start() {
-        /*
-        World_Bar healthBar = new World_Bar(transform, new Vector3(0, 9), new Vector3(7, 1.5f), Color.grey, Color.red, 1f, 1000, new World_Bar.Outline { color = Color.black, size = .5f });
-        healthSystem.OnHealthChanged += (object sender, EventArgs e) => {
-            healthBar.SetSize(healthSystem.GetHealthNormalized());
-        };
-        */
     }
 
     public void SetGetTarget(Func<IEnemyTargetable> getEnemyTarget) {
@@ -159,7 +138,6 @@ public class Enemy : MonoBehaviour {
             FlyingBody.Create(GameAssets.i.pfEnemyFlyingBody, GetPosition(), bloodDir);
             Destroy(gameObject);
         } else {
-            // Knockback
             transform.position += bloodDir * 5f;
             if (hitUnitAnim != null) {
                 state = State.Busy;
@@ -195,7 +173,6 @@ public class Enemy : MonoBehaviour {
 
     public void SetTargetPosition(Vector3 targetPosition) {
         currentPathIndex = 0;
-        //pathVectorList = GridPathfinding.instance.GetPathRouteWithShortcuts(GetPosition(), targetPosition).pathVectorList;
         pathVectorList = new List<Vector3> { targetPosition };
         if (pathVectorList != null && pathVectorList.Count > 1) {
             pathVectorList.RemoveAt(0);

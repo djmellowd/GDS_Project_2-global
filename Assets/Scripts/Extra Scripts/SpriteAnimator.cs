@@ -33,7 +33,6 @@ public class SpriteAnimator : MonoBehaviour {
         bool newFrame = false;
         while (timer >= timerMax) {
             timer -= timerMax;
-            //Next frame
             currentFrame = (currentFrame+1) % frames.Length;
             newFrame = true;
             if (currentFrame == 0) {

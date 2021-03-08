@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace V_ObjectSystem {
 
-    // Reference to Unity Transform, auto updates position on LateUpdate
     public class V_ObjectTransform_LateUpdate : V_IObjectTransform, V_IDestroySelf {
 
         private GameObject gameObject;

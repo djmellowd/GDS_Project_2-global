@@ -11,10 +11,7 @@ namespace V_AnimationSystem {
 
     public class UnitAnim {
 
-
         public const string VALID_NAME_DIC = "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ0123456789_";
-        //public const string VALID_TRIGGER_DIC = "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ0123456789_";
-
 
         public enum AnimDir {
             Down,
@@ -26,23 +23,6 @@ namespace V_AnimationSystem {
             UpLeft,
             UpRight,
         }
-
-
-        /*
-        public static string GetAnimDirString(AnimDir animDir) {
-            switch (animDir) {
-            default:
-            case AnimDir.Down:      return Localization.GetString(Localization.Key.Down);
-            case AnimDir.Up:        return Localization.GetString(Localization.Key.Up);
-            case AnimDir.Left:      return Localization.GetString(Localization.Key.Left);
-            case AnimDir.Right:     return Localization.GetString(Localization.Key.Right);
-            case AnimDir.DownLeft:  return Localization.GetString(Localization.Key.DownLeft);
-            case AnimDir.DownRight: return Localization.GetString(Localization.Key.DownRight);
-            case AnimDir.UpLeft:    return Localization.GetString(Localization.Key.UpLeft);
-            case AnimDir.UpRight:   return Localization.GetString(Localization.Key.UpRight);
-            }
-        }
-        */
         
         public static AnimDir GetAnimDirFromVectorLimit4Directions(Vector3 dir) {
             return GetAnimDirFromAngleLimit4Directions(V_UnitAnimation.GetAngleFromVector(dir));
@@ -69,23 +49,23 @@ namespace V_AnimationSystem {
         }
         public static AnimDir GetAnimDirFromAngle(int angle) {
             switch (angle) {
-            case 2: //Up
+            case 2:
                 return AnimDir.Up;
-            case 1: //Right-Up
+            case 1:
                 return AnimDir.UpRight;
-            case 0: //Right
-            case 8: //Right
+            case 0:
+            case 8:
                 return AnimDir.Right;
-            case 7: //Right-Down
+            case 7:
                 return AnimDir.DownRight;
             default:
-            case 6: //Down
+            case 6:
                 return AnimDir.Down;
-            case 5: //Left-Down
+            case 5:
                 return AnimDir.DownLeft;
-            case 4: //Left
+            case 4:
                 return AnimDir.Left;
-            case 3: //Left-Up
+            case 3:
                 return AnimDir.UpLeft;
             }
         }
@@ -120,13 +100,8 @@ namespace V_AnimationSystem {
             return new UnitAnim(name, anims);
         }
 
-
-
-
-
-        // Single animation
         private string name;
-        private bool disableOverwrite;  // Cannot overwrite default animations
+        private bool disableOverwrite;
         private V_Skeleton_Anim[] anims;
 
         private UnitAnim(string name, V_Skeleton_Anim[] anims) {
@@ -177,7 +152,7 @@ namespace V_AnimationSystem {
         }
 
         public UnitAnimType GetUnitAnimType() {
-            return null; // UnitAnimType.MinionAttack;
+            return null;
         }
 
         public float GetFrameRateOriginal() {
@@ -201,35 +176,26 @@ namespace V_AnimationSystem {
         }
 
         public void ApplyAimDir(Vector3 dir, Vector3 positionOffset, int bonusSortingOrder) {
-            // Anim default dir is pointing RIGHT = Vector3(1, 0);
             float aimAngle = GetAngleFromVectorFloat(dir);
 
-            //foreach (V_Skeleton_Anim skeletonAnim in anims) {
             for (int i=0; i<anims.Length; i++) {
                 V_Skeleton_Anim skeletonAnim = anims[i];
-
-                // Make sure the skeleton updater that will use this anim knows the sorting order might change
-                //skeletonAnim.defaultHasVariableSortingOrder = true;
 
                 V_Skeleton_Frame[] skeletonFrameArr = skeletonAnim.GetFrames();
                 for (int j=0; j<skeletonFrameArr.Length; j++) {
                     V_Skeleton_Frame skeletonFrame = skeletonFrameArr[j];
-                    // Rotate based on base position
                     Vector3 framePosition = skeletonFrame.GetBasePosition();
                     Vector3 newFramePosition = ApplyRotationToVector(framePosition, dir);
                     skeletonFrame.ApplyTemporaryPosition(newFramePosition + positionOffset);
 
-                    // Rotate based on base rotation
                     skeletonFrame.ApplyBonusRotation(aimAngle);
 
-                    // Apply bonus sorting order
                     skeletonFrame.ApplyBonusSortingOrder(bonusSortingOrder);
                 }
             }
         }
 
         public void ApplyAimDir(Vector3 dir, Vector3 positionOffset, int bonusSortingOrder, params string[] bodyPartNameArr) {
-            // ########## TODO, Apply Aim Dir only to these body parts
         }
 
         public void ApplyBonusRotation(float rot) {
@@ -255,11 +221,9 @@ namespace V_AnimationSystem {
             V_Skeleton_Anim[] skeletonAnimArray = new V_Skeleton_Anim[anims.Length];
             for (int i = 0; i < anims.Length; i++) {
                 skeletonAnimArray[i] = anims[i].Clone();
-                // Not Clone Deep!
             }
             UnitAnim clone = new UnitAnim(name, skeletonAnimArray);
             return clone;
-            //return Load(Save());
         }
         
         public UnitAnim CloneDeep() {
@@ -304,10 +268,9 @@ namespace V_AnimationSystem {
                 animKeyframes.Add(clonedKeyframes);
             }
 
-            // Reverse Animation Frame Multiplier
             foreach (V_Skeleton_Anim anim in animKeyframes) {
                 foreach (V_Skeleton_Frame frame in anim.frames) {
-                    frame.frameCount = frame.frameCount / ANIMATION_FRAME_MULTIPLIER; // Decrease frameCount
+                    frame.frameCount = frame.frameCount / ANIMATION_FRAME_MULTIPLIER;
                 }
                 anim.SetFrameRateOriginal(anim.GetFrameRateOriginal() * ANIMATION_FRAME_MULTIPLIER);
             }
@@ -352,20 +315,16 @@ namespace V_AnimationSystem {
         public static void Init() {
             if (unitAnimList != null) return;
             isDirty = false;
-            // Load all animations
             unitAnimList = new List<UnitAnim>();
 
             if (V_Animation.DATA_LOCATION == V_Animation.DataLocation.Assets) {
                 LoadFromDataFolder();
             } else {
-                //RenameAnimationsInResources(); // Run once when updating resources folder
                 LoadFromResources();
             }
 
 
             DefaultAnimation = UnitAnim.GetUnitAnim("DefaultAnimation");
-
-            //LoadOldVersionSaves();
             
 #if !SILENT
             Debug.Log("Loaded Animations: "+unitAnimList.Count);
@@ -375,7 +334,6 @@ namespace V_AnimationSystem {
 
 
         private static void LoadFromDataFolder() {
-            // Load Default Animations
             DirectoryInfo defaultDirMain = new DirectoryInfo(V_Animation.LOC_DEFAULT_ANIMATIONS);
             DirectoryInfo[] defaultDirArr = defaultDirMain.GetDirectories();
             foreach (DirectoryInfo defaultDir in defaultDirArr) {
@@ -384,10 +342,8 @@ namespace V_AnimationSystem {
                     string readAllText;
                     SaveSystem.FileData fileData;
                     if (SaveSystem.Load(V_Animation.LOC_DEFAULT_ANIMATIONS + defaultDir.Name + "/", fileInfo.Name, out fileData)) {
-                        // Loaded!
                         readAllText = fileData.save;
                     } else {
-                        // Load failed!
                         continue;
                     }
                     UnitAnim unitAnim = UnitAnim.Load(readAllText);
@@ -395,16 +351,13 @@ namespace V_AnimationSystem {
                     unitAnimList.Add(unitAnim);
                 }
             }
-            // Load Default Animations on Main Default Folder
             List<FileInfo> defaultFileInfoList = new List<FileInfo>(defaultDirMain.GetFiles("*." + V_Animation.fileExtention_Animation));
             foreach (FileInfo fileInfo in defaultFileInfoList) {
                 string readAllText;
                 SaveSystem.FileData fileData;
                 if (SaveSystem.Load(V_Animation.LOC_DEFAULT_ANIMATIONS + "/", fileInfo.Name, out fileData)) {
-                    // Loaded!
                     readAllText = fileData.save;
                 } else {
-                    // Load failed!
                     continue;
                 }
                 UnitAnim unitAnim = UnitAnim.Load(readAllText);
@@ -412,9 +365,6 @@ namespace V_AnimationSystem {
                 unitAnimList.Add(unitAnim);
             }
 
-
-
-            // Load Custom Animations
             DirectoryInfo dir = new DirectoryInfo(V_Animation.LOC_ANIMATIONS);
             List<FileInfo> fileInfoList = new List<FileInfo>(dir.GetFiles("*." + V_Animation.fileExtention_Animation));
 
@@ -427,7 +377,6 @@ namespace V_AnimationSystem {
                     // Loaded!
                     readAllText = fileData.save;
                 } else {
-                    // Load failed!
                     continue;
                 }
                 UnitAnim unitAnim = UnitAnim.Load(readAllText);
@@ -453,7 +402,6 @@ namespace V_AnimationSystem {
                 newFileName = Application.dataPath + @"/V_Animation/Resources/AnimationData/Animations/" + newFileName;
                 if (!File.Exists(newFileName) || 
                     fileInfo.LastWriteTime > new FileInfo(newFileName).LastWriteTime) {
-                    // File doesnt exist
                     Debug.Log("Copying Anim: " + fileInfo.Name + "\n" + fileInfo.FullName + " -> " + newFileName);
                     try {
                         File.Copy(fileInfo.FullName, newFileName, true);
@@ -472,7 +420,6 @@ namespace V_AnimationSystem {
                 newFileName = Application.dataPath + @"/V_Animation/Resources/AnimationData/AnimationTypes/" + newFileName;
                 if (!File.Exists(newFileName) || 
                     fileInfo.LastWriteTime > new FileInfo(newFileName).LastWriteTime) {
-                    // File doesnt exist
                     Debug.Log("Copying AnimType: " + fileInfo.Name + "\n" + fileInfo.FullName +" -> "+ newFileName);
                     try {
                         File.Copy(fileInfo.FullName, newFileName, true);
@@ -481,52 +428,10 @@ namespace V_AnimationSystem {
                     }
                 }
             }
-
-
-
-
-            /*
-            animationResourcesPath = Application.dataPath + @"/V_Animation/Resources/AnimationData/Animations/";
-            animationDataDir = new DirectoryInfo(animationResourcesPath);
-            fileInfoList = new List<FileInfo>();
-            fileInfoList.AddRange(animationDataDir.GetFiles("*.bytes"));
-            foreach (FileInfo fileInfo in fileInfoList) {
-                string newFileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5) + V_Animation.fileExtention_Animation;
-                newFileName = Application.dataPath + @"/Data/Animations/" + newFileName;
-                if (!File.Exists(newFileName)) {
-                    // File doesnt exist
-                    Debug.Log("Copying Anim: " + fileInfo.Name + "\n" + fileInfo.FullName +" -> "+ newFileName);
-                    try {
-                        File.Copy(fileInfo.FullName, newFileName);
-                    } catch (System.Exception e) {
-                        Debug.LogError("Error: " + e);
-                    }
-                }
-            }
-            
-            animationResourcesPath = Application.dataPath + @"/V_Animation/Resources/AnimationData/AnimationTypes/";
-            animationDataDir = new DirectoryInfo(animationResourcesPath);
-            fileInfoList = new List<FileInfo>();
-            fileInfoList.AddRange(animationDataDir.GetFiles("*.bytes"));
-            foreach (FileInfo fileInfo in fileInfoList) {
-                string newFileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - 5) + V_Animation.fileExtention_AnimationType;
-                newFileName = Application.dataPath + @"/Data/AnimationTypes/" + newFileName;
-                if (!File.Exists(newFileName)) {
-                    // File doesnt exist
-                    Debug.Log("Copying AnimType: " + fileInfo.Name + "\n" + fileInfo.FullName +" -> "+ newFileName);
-                    try {
-                        File.Copy(fileInfo.FullName, newFileName);
-                    } catch (System.Exception e) {
-                        Debug.LogError("Error: " + e);
-                    }
-                }
-            }
-            */
         }
         
         public static void RenameAnimationsInResources() {
             Debug.Log("########## RenameAnimationsInResources");
-            // Rename all animation files in Resources/AnimationData/ to .bytes
             string animationResourcesPath = Application.dataPath + @"/V_Animation/Resources/AnimationData/";
             DirectoryInfo animationDataDir = new DirectoryInfo(animationResourcesPath);
             DirectoryInfo[] dirArr = animationDataDir.GetDirectories("*", SearchOption.AllDirectories);
@@ -542,7 +447,6 @@ namespace V_AnimationSystem {
             }
         }
         private static void SaveResourcesTree() {
-            // Save Folder Tree for Animation Resources
             string treeString = "";
 
             string animationResourcesPath = Application.dataPath + @"/V_Animation/Resources/AnimationData/";
@@ -559,27 +463,20 @@ namespace V_AnimationSystem {
             File.WriteAllText(animationResourcesPath + "animationResourceTreeTextAsset.txt", treeString);
         }
         private static void LoadFromResources() {
-            //TextAsset animationResourceTreeTextAsset = Resources.Load<TextAsset>("AnimationData/animationResourceTreeTextAsset");
-            //string folderCSV = animationResourceTreeTextAsset.text;
-            string folderCSV = "_Default/Animations,Animations";//,AnimationTypes";
+            string folderCSV = "_Default/Animations,Animations";
 
             string[] folderArr = V_Animation.SplitString(folderCSV, ",");
             foreach (string folder in folderArr) {
                 if (folder != "") {
-                    // Load resources in folder
                     TextAsset[] textAssetArr = Resources.LoadAll<TextAsset>("AnimationData/" + folder);
-                    //Debug.Log("Animations folder: "+folder+"; Found Animations: "+ textAssetArr.Length);
                     foreach (TextAsset textAsset in textAssetArr) {
-                        //Debug.Log("Loading: "+textAsset.name);
                         byte[] byteArr = textAsset.bytes;
 
                         string readAllText;
                         SaveSystem.FileData fileData;
                         if (SaveSystem.Load(byteArr, out fileData)) {
-                            // Loaded!
                             readAllText = fileData.save;
                         } else {
-                            // Load failed!
                             readAllText = null;
                         }
                         UnitAnim unitAnim = UnitAnim.Load(readAllText);
@@ -593,7 +490,6 @@ namespace V_AnimationSystem {
 
 
         private static void LoadOldVersionSaves() { 
-            // Load Old Version saves
             string dirPath = V_Animation.LOC_ANIMATIONS + "OldVersion/";
             DirectoryInfo dir = new DirectoryInfo(dirPath);
             List<FileInfo> fileInfoList = new List<FileInfo>(dir.GetFiles("*.txt"));
@@ -637,7 +533,6 @@ namespace V_AnimationSystem {
             }
         }
 
-
         public static string LoadAnimString(string fileNameWithExtension) {
             return LoadAnimString(V_Animation.LOC_ANIMATIONS, fileNameWithExtension);
         }
@@ -645,18 +540,12 @@ namespace V_AnimationSystem {
             string readAllText;
             SaveSystem.FileData fileData;
             if (SaveSystem.Load(parentFolder, fileNameWithExtension, out fileData)) {
-                // Loaded!
                 readAllText = fileData.save;
             } else {
-                // Load failed!
                 return null;
             }
             return readAllText;
         }
-
-
-
-
 
         public static UnitAnim dMinion_IdleDown;
 
@@ -664,10 +553,6 @@ namespace V_AnimationSystem {
 
         public static UnitAnim None;
 
-
-
-
-        
         private class UnitAnimEnum {
 
             static UnitAnimEnum() {
@@ -678,9 +563,6 @@ namespace V_AnimationSystem {
                     }
                 }
             }
-
-            //public static UnitAnim dMinion_IdleDown;
-
         }
 
     }

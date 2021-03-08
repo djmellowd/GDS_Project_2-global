@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
@@ -88,11 +76,9 @@ public class PlayerCharacterDashRoll : MonoBehaviour {
         Vector3 moveDir = baseMoveDir;
         bool canMove = CanMove(moveDir, distance);
         if (!canMove) {
-            // Cannot move diagonally
             moveDir = new Vector3(baseMoveDir.x, 0f).normalized;
             canMove = moveDir.x != 0f && CanMove(moveDir, distance);
             if (!canMove) {
-                // Cannot move horizontally
                 moveDir = new Vector3(0f, baseMoveDir.y).normalized;
                 canMove = moveDir.y != 0f && CanMove(moveDir, distance);
             }
@@ -131,7 +117,6 @@ public class PlayerCharacterDashRoll : MonoBehaviour {
 
     private void HandleDodgeRollSliding() {
         TryMove(slideDir, slideSpeed * Time.deltaTime);
-        //transform.position += slideDir * slideSpeed * Time.deltaTime;
 
         slideSpeed -= slideSpeed * 10f * Time.deltaTime;
         if (slideSpeed < 10f) {

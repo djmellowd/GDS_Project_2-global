@@ -49,7 +49,6 @@ namespace V_AnimationSystem {
             if (DATA_LOCATION == DataLocation.Assets) {
                 Init_Folders();
             } else {
-                //UnitAnim.RenameAnimationsInResources(); // Run once when updating resources folder
             }
 
             UVType.Init();
@@ -58,7 +57,6 @@ namespace V_AnimationSystem {
         }
 
 
-        // Utilities
         public static T GetEnumFromString<T>(string convert) {
             foreach (T en in System.Enum.GetValues(typeof(T))) {
                 if (en.ToString() == convert)
@@ -184,15 +182,13 @@ namespace V_AnimationSystem {
             List<V_Skeleton_Anim> animKeyframes = new List<V_Skeleton_Anim>();
             animKeyframes = V_Animation.Load_List<V_Skeleton_Anim>(content[0], V_Skeleton_Anim.Load, "#SKELETONANIMLIST#");
 
-            // Duplicate frameCount
             foreach (V_Skeleton_Anim anim in animKeyframes) {
                 foreach (V_Skeleton_Frame frame in anim.frames) {
-                    frame.frameCount = frame.frameCount * animationFrameMultiplier; // Increase frameCount
+                    frame.frameCount = frame.frameCount * animationFrameMultiplier;
                 }
                 anim.SetFrameRateOriginal(anim.GetFrameRateOriginal() / animationFrameMultiplier);
             }
 
-            // Remake Tweens
             foreach (V_Skeleton_Anim anim in animKeyframes)
                 anim.RemakeTween();
         

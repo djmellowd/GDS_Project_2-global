@@ -1,23 +1,8 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 
-/*
- * Simple Jump
- * */
 public class PlayerPlatformer : MonoBehaviour {
 
     private static PlayerPlatformer instance;
@@ -55,7 +40,6 @@ public class PlayerPlatformer : MonoBehaviour {
 
         HandleMovement();
 
-        // Set Animations
         if (IsGrounded()) {
             if (rigidbody2d.velocity.x == 0) {
                 playerBase.PlayIdleAnim();
@@ -67,7 +51,6 @@ public class PlayerPlatformer : MonoBehaviour {
         }
 
         if (rigidbody2d.velocity.y < -300f) {
-            // Falling way too fast, dead
             Die();
         }
     }

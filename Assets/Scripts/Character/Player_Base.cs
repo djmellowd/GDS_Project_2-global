@@ -1,23 +1,8 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 
-/*
- * Player Base Class
- * */
 public class Player_Base : MonoBehaviour {
     
     #region BaseSetup
@@ -85,8 +70,6 @@ public class Player_Base : MonoBehaviour {
         unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_PunchQuick"), dir, 1f, (UnitAnim unitAnim2) => {
             if (onAnimComplete != null) onAnimComplete();
         }, (string trigger) => {
-            // HIT = HandR
-            // HIT2 = HandL
             string hitBodyPartName = trigger == "HIT" ? "HandR" : "HandL";
             Vector3 impactPosition = unitSkeleton.GetBodyPartPosition(hitBodyPartName);
             if (onHit != null) {
@@ -99,8 +82,6 @@ public class Player_Base : MonoBehaviour {
         unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_KickQuick"), dir, 1f, (UnitAnim unitAnim2) => {
             if (onAnimComplete != null) onAnimComplete();
         }, (string trigger) => {
-            // HIT = FootL
-            // HIT2 = FootR
             string hitBodyPartName = trigger == "HIT" ? "FootL" : "FootR";
             Vector3 impactPosition = unitSkeleton.GetBodyPartPosition(hitBodyPartName);
             if (onHit != null) {

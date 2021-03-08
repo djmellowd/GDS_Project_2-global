@@ -1,24 +1,9 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 using CodeMonkey;
 
-/*
- * Player movement with WASD
- * */
 public class PlayerMovement : MonoBehaviour, EnemyHandler.IEnemyTargetable {
     
     public static PlayerMovement instance;
@@ -83,7 +68,6 @@ public class PlayerMovement : MonoBehaviour, EnemyHandler.IEnemyTargetable {
             playerBase.PlayIdleAnim();
         } else {
             playerBase.PlayMoveAnim(moveDir);
-            //transform.position += moveDir * SPEED * Time.deltaTime;
             playerRigidbody2D.MovePosition(transform.position + moveDir * SPEED * Time.fixedDeltaTime);
         }
         
@@ -113,13 +97,11 @@ public class PlayerMovement : MonoBehaviour, EnemyHandler.IEnemyTargetable {
     public void Damage(Vector3 attackerPosition) {
         Vector3 bloodDir = (GetPosition() - attackerPosition).normalized;
         Blood_Handler.SpawnBlood(GetPosition(), bloodDir);
-        // Knockback
         transform.position += bloodDir * 1.5f;
         health--;
         if (health == 0) {
             FlyingBody.Create(GameAssets.i.pfEnemyFlyingBody, GetPosition(), bloodDir);
             gameObject.SetActive(false);
-            //transform.Find("Body").gameObject.SetActive(false);
         }
     }
 

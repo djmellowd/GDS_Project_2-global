@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,7 +19,6 @@ public class UI_HotkeyBarAbilitySlot : MonoBehaviour, IPointerDownHandler, IDrag
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
 
-        // Automatically grab Canvas
         Transform testCanvasTransform = transform;
         do {
             testCanvasTransform = testCanvasTransform.parent;
@@ -63,11 +50,8 @@ public class UI_HotkeyBarAbilitySlot : MonoBehaviour, IPointerDownHandler, IDrag
 
     public void OnDrop(PointerEventData eventData) {
         if (eventData.pointerDrag != null) {
-            // Dragging something
             UI_HotkeyBarAbilitySlot uiHotkeyBarAbilitySlot = eventData.pointerDrag.GetComponent<UI_HotkeyBarAbilitySlot>();
             if (uiHotkeyBarAbilitySlot != null) {
-                // Dragging Slot and dropped on this one
-                //hotkeySystem.SwapAbility(abilityIndex, uiHotkeyBarAbilitySlot.GetAbilityIndex());
                 hotkeySystem.SwapAbility(hotkeyAbility, uiHotkeyBarAbilitySlot.GetHotkeyAbility());
             }
         }

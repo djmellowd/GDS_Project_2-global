@@ -27,7 +27,7 @@ public class Dirt_Handler {
     private float materialTimer;
     private float materialTimerMax = 0.06f;
     
-    private static GameObject initGameObject; // Global game object used for initializing class, is destroyed on scene change
+    private static GameObject initGameObject;
 
     private static void InitIfNeeded() {
         if (initGameObject == null) {
@@ -41,16 +41,13 @@ public class Dirt_Handler {
 	
 	public Dirt_Handler() {
         materialStarting = Random.Range(0,2) * 8;
-		material = materialStarting;//Random.Range(0,8);
+		material = materialStarting;
         materialTimer = materialTimerMax;
 	}
 	
 	void Update () {
 		pos += velocity * (speed*deltaTime);
 		speed -= speed*deltaTime5;
-        //material = 8 - Mathf.FloorToInt(timer * 16f);
-        //if (material < 0) material = 0;
-        //if (material > 7) material = 7;
         materialTimer -= deltaTime;
         if (materialTimer < 0) {
             materialTimer = materialTimerMax;

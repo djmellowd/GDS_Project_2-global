@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,9 +26,8 @@ public class UI_HotkeyBar : MonoBehaviour {
     }
 
     private void UpdateVisual() {
-        // Clear old objects
         foreach (Transform child in transform) {
-            if (child == abilitySlotTemplate) continue; // Don't destroy Template
+            if (child == abilitySlotTemplate) continue;
             Destroy(child.gameObject);
         }
 
@@ -57,7 +44,6 @@ public class UI_HotkeyBar : MonoBehaviour {
             abilitySlotTransform.GetComponent<UI_HotkeyBarAbilitySlot>().Setup(hotkeyAbilitySystem, i, hotkeyAbility);
         }
         
-        // Set up extras
         hotkeyAbilityList = hotkeyAbilitySystem.GetExtraHotkeyAbilityList();
         for (int i = 0; i < hotkeyAbilityList.Count; i++) {
             HotkeyAbilitySystem.HotkeyAbility hotkeyAbility = hotkeyAbilityList[i];

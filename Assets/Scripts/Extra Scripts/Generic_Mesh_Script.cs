@@ -34,7 +34,6 @@ public class Generic_Mesh_Script : MonoBehaviour {
 	public UVVectors[] UVList;
 	private Vector2[] presetUV;
 	private float timer = .1f;
-	//private float timerAmount = .1f;
     public float updateRate = .033f;
 	private string particles;
     public bool destroy = true;
@@ -42,11 +41,8 @@ public class Generic_Mesh_Script : MonoBehaviour {
 	void Awake() {
         CacheQuaternionEuler();
         if (destroy) return;
-		//amtMax = 1000;
 		Generic_Mesh_Script.dictionary[name] = this;
 		
-		//Each square has: 4 vertices, 4 uvs, 2*3 triangles
-		//1000 squares have: 4000 vertices, 4000 uvs, 6000 triangles
 		mesh = new Mesh();
 		vertices = new Vector3[4*amtMax];
 		uvs = new Vector2[4*amtMax];
@@ -55,9 +51,7 @@ public class Generic_Mesh_Script : MonoBehaviour {
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
 		mesh.uv = uvs;
-		//mesh.RecalculateNormals();
 		
-		//Calculate preset UV
 		presetUV = new Vector2[4*UVList.Length];
 		for (int i=0; i<UVList.Length; i++) {
 			presetUV[i*4+0] = new Vector2(UVList[i].Vector_1.x/UVTextureSize.x,UVList[i].Vector_1.y/UVTextureSize.y);
@@ -65,25 +59,11 @@ public class Generic_Mesh_Script : MonoBehaviour {
 			presetUV[i*4+2] = new Vector2(UVList[i].Vector_3.x/UVTextureSize.x,UVList[i].Vector_3.y/UVTextureSize.y);
 			presetUV[i*4+3] = new Vector2(UVList[i].Vector_4.x/UVTextureSize.x,UVList[i].Vector_4.y/UVTextureSize.y);
 		}
-		/*
-		 * 0,1
-		 * 0,0
-		 * 1,0
-		 * 1,1
-		*/
-		//mesh.bounds = new Bounds(new Vector3(Gauntlet.width*25-25+Gauntlet.startPos.x*50,1,-Gauntlet.height*25+25+Gauntlet.startPos.y*50),new Vector3(50*Gauntlet.width,1,50*Gauntlet.height));
+
         mesh.bounds = bounds;
 		
 		GetComponent<MeshFilter>().mesh = mesh;
 		
-		//particles = Options.Particles;
-		//timerAmount = .033f; // 30FPS
-        //updateRate = .033f;
-        //timerAmount = .016f; // 60FPS
-		//if (particles == "Medium") timerAmount = .066f;
-		//if (particles == "Low") timerAmount = .1f;
-
-		//timer = .1f+Random.Range(0,timerAmount);
         timer = .1f+Random.Range(0,updateRate);
 	}
     void OnDestroy() {
@@ -99,9 +79,7 @@ public class Generic_Mesh_Script : MonoBehaviour {
 	private void addGeneric(Vector3 pos, float rot, int material, float offset, Vector3 baseDir, bool skewed) {
 		if (index >= amtMax) return;
 		update = true;
-		//pos.z -= offset;
-		
-		//Relocate vertices
+
 		int vIndex = index*4;
 		int vIndex0 = vIndex;
 		int vIndex1 = vIndex+1;
@@ -120,13 +98,11 @@ public class Generic_Mesh_Script : MonoBehaviour {
 			vertices[vIndex3] = pos+GetQuaternionEuler(rot-  0)*baseDir;
 		}
 		
-		//Relocate UVs
 		uvs[vIndex0] = presetUV[material*4+0];
 		uvs[vIndex1] = presetUV[material*4+1];
 		uvs[vIndex2] = presetUV[material*4+2];
 		uvs[vIndex3] = presetUV[material*4+3];
 		
-		//Create triangles
 		int tIndex = index*6;
 		
 		triangles[tIndex+0] = vIndex0;
@@ -142,7 +118,6 @@ public class Generic_Mesh_Script : MonoBehaviour {
 
         
 		if (index == 0 && spawnNewMeshWhenFull) {
-			//Create a new instance
 			GameObject newInstance = new GameObject(name, typeof(MeshFilter), typeof(MeshRenderer), typeof(Generic_Mesh_Script));
 			Transform trans = newInstance.transform;
 			trans.parent = transform.parent;
@@ -175,9 +150,7 @@ public class Generic_Mesh_Script : MonoBehaviour {
 	}
 	public void updateGeneric(int index, Vector3 pos, float rot, int material, float offset, Vector3 baseDir, bool skewed) {
 		update = true;
-		//pos.z -= offset;
-		
-		//Relocate vertices
+
 		int vIndex = index*4;
 		int vIndex0 = vIndex;
 		int vIndex1 = vIndex+1;
@@ -197,13 +170,11 @@ public class Generic_Mesh_Script : MonoBehaviour {
 		}
         
 		
-		//Relocate UVs
 		uvs[vIndex0] = presetUV[material*4+0];
 		uvs[vIndex1] = presetUV[material*4+1];
 		uvs[vIndex2] = presetUV[material*4+2];
 		uvs[vIndex3] = presetUV[material*4+3];
 		
-		//Create triangles
 		int tIndex = index*6;
 		
 		triangles[tIndex+0] = vIndex0;
@@ -243,13 +214,7 @@ public class Generic_Mesh_Script : MonoBehaviour {
 			mesh.triangles = triangles;
 			mesh.uv = uvs;
 			update = false;
-			/*if (particles != Options.Particles) {
-				particles = Options.Particles;
-				timerAmount = .033f;
-				if (particles == "Medium") timerAmount = .066f;
-				if (particles == "Low") timerAmount = .1f;	
-			}*/
-		    //mesh.RecalculateNormals();
+
 			updateUvs = false;
 			return;
 		}

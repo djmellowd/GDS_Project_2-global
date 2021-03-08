@@ -1,15 +1,3 @@
-/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
- 
 using System;
 using UnityEngine;
 using System.Collections;
@@ -40,9 +28,6 @@ namespace GridPathfindingSystem {
         public int hValue;
         public int fValue;
 
-        //public Transform trans;
-        //public int layerMask = 1 << 9;
-
         public PathNode(int _xPos, int _yPos) {
             xPos = _xPos;
             yPos = _yPos;
@@ -52,7 +37,6 @@ namespace GridPathfindingSystem {
             moveWest = true;
             moveEast = true;
 
-            //trans = ((GameObject) Object.Instantiate(Resources.Load("pfPathNode"), new Vector3(xPos*10, 0, zPos*10), Quaternion.identity)).transform;
             TestHitbox();
         }
         public void ResetRestrictions() {

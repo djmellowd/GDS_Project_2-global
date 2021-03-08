@@ -27,7 +27,6 @@ namespace V_ObjectSystem {
 
         public int id;
 
-        // Mandatory
         private string name;
 
         private V_IObjectActiveLogic[] activeLogicArr;
@@ -46,7 +45,6 @@ namespace V_ObjectSystem {
 
         private bool isDisabled;
 
-        // Helper accessor
         public Func<Vector3> GetPosition;
         public Func<Transform> GetTransform;
 
@@ -137,7 +135,6 @@ namespace V_ObjectSystem {
         }
 
 
-        // Caled every frame from V_Main
         public static void Static_Update(float deltaTime, Dictionary<V_Main.UpdateType, float> updateTimeModDic) {
             List<V_Object> tmpInstanceList = new List<V_Object>(instanceList);
             for (int i = 0; i < tmpInstanceList.Count; i++) {
@@ -157,7 +154,6 @@ namespace V_ObjectSystem {
 
             deltaTime = deltaTime * deltaTimeModifier;
 
-            // Execute all logic
             for (int i = 0; i < activeLogicArrCopy.Length; i++) {
                 activeLogicArrCopy[i].Update(deltaTime);
                 if (isDestroyed) return;
@@ -250,65 +246,6 @@ namespace V_ObjectSystem {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-        /*
-        public V_ObjectLogic_DebugText AddDebugText(Func<string> GetDebugString) {
-            V_ObjectLogic_DebugText debugText = new V_ObjectLogic_DebugText(GetPosition, GetDebugString);
-            this.AddActiveLogic(debugText);
-            return debugText;
-        }
-        public static V_Object CreateDebugText_UI(Func<string> GetDebugString) {
-            return CreateDebugText_UI(Vector3.zero, GetDebugString);
-        }
-        public static V_Object CreateDebugText_UI(Vector3 offsetPosition, Func<string> GetDebugString) {
-            return CreateDebugText(() => {
-                return UICanvas.uiCornerLL.position + offsetPosition;
-            }, GetDebugString);
-        }
-        public static V_Object CreateDebugTextPopup(string text, Vector3 position) {
-            float startTime = Time.realtimeSinceStartup;
-            float popupTime = 2f;
-            Vector3 popupOffset = new Vector3(0, 10);
-            Func<Vector3> GetPosition = delegate () {
-                float timeMultiplier = (Time.realtimeSinceStartup - startTime) / popupTime;
-                return position + popupOffset * timeMultiplier;
-            };
-            V_Object vObject = CreateDebugText(GetPosition, () => text);
-            FunctionTimer.Create(vObject.DestroySelf, popupTime);
-            return vObject;
-        }
-        public static V_Object CreateDebugText(Vector3 position, Func<string> GetDebugString) {
-            return CreateDebugText(() => { return position; }, GetDebugString);
-        }
-        public static V_Object CreateDebugText(Func<Vector3> GetPosition, Func<string> GetDebugString) {
-            V_Object debugObject = V_Object.CreateObject();
-            debugObject.AddActiveLogic(new V_ObjectLogic_DebugText(GetPosition, GetDebugString));
-            return debugObject;
-        }
-        public static V_Object CreateDebugUpdater(Action<float> action) {
-            V_Object debugObject = V_Object.CreateObject();
-            debugObject.AddActiveLogic(new V_ObjectLogic_Custom(delegate (object sender, V_ObjectLogic_Custom.OnUpdateEventArgs e) { action(e.deltaTime); }, true, true, true));
-            return debugObject;
-        }
-        */
-
-
-
-
-
-
-
-
-
         public static V_Object CreateObject(V_Main.UpdateType updateType = V_Main.UpdateType.Main) {
             return new V_Object(updateType);
         }
@@ -338,7 +275,6 @@ namespace V_ObjectSystem {
             GameObject gameObject = new GameObject("Skeleton", typeof(MeshFilter), typeof(MeshRenderer));
             Transform instantiatedTransform = gameObject.transform;
             instantiatedTransform.position = position;
-            //Transform instantiatedTransform = UnityEngine.Object.Instantiate(SpriteHolder.instance.t_pfV_Skeleton, position, Quaternion.identity);
             V_IObjectTransform transform = new V_ObjectTransform(instantiatedTransform);
             instancedObject.AddRelatedObject(transform);
             V_IObjectTransformBody transformBody = new V_ObjectTransformBody(instantiatedTransform, material);
@@ -413,7 +349,6 @@ namespace V_ObjectSystem {
         public static List<V_Object> GetObjectsWithAllTheseLogicTypes<T>() {
             List<V_Object> filteredList;
             if (typeInstanceDic.TryGetValue(typeof(T), out filteredList)) {
-                // return cache
             } else {
                 filteredList = FilterObjectsWithTheseLogicTypes<T>(instanceList);
                 typeInstanceDic[typeof(T)] = filteredList;
@@ -427,7 +362,6 @@ namespace V_ObjectSystem {
                 V_Object objectInstance = objectList[i];
                 T logic = objectInstance.GetLogic<T>();
                 if (logic != null) {
-                    // Contains logic
                     ret.Add(objectInstance);
                 }
             }
@@ -446,7 +380,6 @@ namespace V_ObjectSystem {
         }
 
         public static List<V_Object> FilterObjectList_Distance(List<V_Object> objectList, Vector3 position, float distance) {
-            // Filter objects within distance
             return FilterObjectList(objectList, GetValidateObjectFuncTestDistance(position, distance));
         }
 
@@ -459,7 +392,6 @@ namespace V_ObjectSystem {
                 if (closest == null) {
                     closest = objectList[i];
                 } else {
-                    // No closest
                     if (Vector3.Distance(position, objectList[i].GetPosition()) < Vector3.Distance(position, closest.GetPosition())) {
                         closest = objectList[i];
                     }
@@ -495,7 +427,6 @@ namespace V_ObjectSystem {
         }
 
 
-        // Destroy all objects that have this particular logic
         public static void TriggerDestroySelfOnObjectsWithLogic<T>() {
             List<V_Object> tmpObjectList = new List<V_Object>(GetObjectsWithAllTheseLogicTypes<T>());
             foreach (V_Object objectInstance in tmpObjectList) {

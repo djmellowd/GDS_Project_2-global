@@ -7,39 +7,13 @@ namespace V_AnimationSystem {
     public class UVType {
 
         public int id;
-        //public int preset;
         public string customName;
         public string textureName;
         public int textureWidth;
         public int textureHeight;
         public Vector2[] uvs;
-        /*
-        public UVType(int preset) {
-            this.preset = preset;
-            if (preset == Custom) {
-                float x0, x1, y0, y1;
-                x0 = y0 = 0f;
-                x1 = y1 = 1f;
-                uvs = new Vector2[] {
-                    new Vector2(x0, y1),
-                    new Vector2(x1, y1),
-                    new Vector2(x0, y0),
-                    new Vector2(x1, y0)
-                };
-            } else {
-                uvs = null;
-            }
-            customName = ((Old_UVType)preset).ToString();
-            id = Random.Range(10000, 99999);
-        }
-        public UVType(Vector2[] uvs) {
-            this.uvs = uvs;
-            preset = Custom;
-            customName = ((Old_UVType)preset).ToString();
-            id = Random.Range(10000, 99999);
-        }*/
+
         public UVType(string customName, float x0, float y0, float x1, float y1, string textureName, int textureWidth, int textureHeight) {
-            //preset = Custom;
             uvs = new Vector2[] {
             new Vector2(x0, y1),
             new Vector2(x1, y1),
@@ -53,7 +27,6 @@ namespace V_AnimationSystem {
             id = Random.Range(10000, 99999);
         }
         public UVType(Vector2[] uvs, string customName, int id, string textureName, int textureWidth, int textureHeight) {
-            //this.preset = preset;
             this.uvs = uvs;
             this.customName = customName;
             this.id = id;
@@ -63,65 +36,8 @@ namespace V_AnimationSystem {
         }
         public override string ToString() {
             return customName;
-            //return id + " " + customName;
         }
         public void GetUVCoords(out Vector2 v00, out Vector2 v11) {
-            /*
-            if (uvs == null || uvs.Length < 2) {
-                Vector2[] tmpUVs = V_UnitSkeleton.GetUV_Type(this);
-                /*
-                Sprite_Tiles sprite_Tiles = new Sprite_Tiles(0);
-                Vector2[] tmpUVs = null;
-                switch (preset) {
-                case UVType.Head_Down:      tmpUVs = sprite_Tiles.uvHead_Down;      break;
-                case UVType.Head_Up:        tmpUVs = sprite_Tiles.uvHead_Up;        break;
-                case UVType.Head_Left:      tmpUVs = sprite_Tiles.uvHead_Left;      break;
-                case UVType.Head_Right:     tmpUVs = sprite_Tiles.uvHead_Right;     break;
-
-                case UVType.Body_Down:      tmpUVs = sprite_Tiles.uvBody_Down;      break;
-                case UVType.Body_Up:        tmpUVs = sprite_Tiles.uvBody_Up;        break;
-                case UVType.Body_Left:      tmpUVs = sprite_Tiles.uvBody_Left;      break;
-                case UVType.Body_Right:     tmpUVs = sprite_Tiles.uvBody_Right;     break;
-
-                case UVType.Hand:
-                case UVType.LHand:
-                case UVType.RHand:
-                    tmpUVs = sprite_Tiles.uvLHand;
-                    break;
-
-                case UVType.Foot:
-                case UVType.Foot_Up:
-                case UVType.Foot_Down:
-                case UVType.Foot_Left:
-                case UVType.Foot_Right:
-                    tmpUVs = sprite_Tiles.uvFoot_Down;
-                    break;
-
-                case UVType.Hat:                tmpUVs = sprite_Tiles.uvFoot_Down;          break;
-                case UVType.Sword:              tmpUVs = sprite_Tiles.uvSword;              break;
-                case UVType.Sword_InvertH:      tmpUVs = sprite_Tiles.uvSword_InvertH;      break;
-                case UVType.WeaponSecondary:    tmpUVs = sprite_Tiles.uvWeaponSecondary;    break;
-                case UVType.Bow:                tmpUVs = sprite_Tiles.uvBow;                break;
-                case UVType.Arrow:              tmpUVs = sprite_Tiles.uvArrow;              break;
-                case UVType.StunRock:           tmpUVs = sprite_Tiles.uvStunRock;           break;
-                case UVType.Shield:             tmpUVs = sprite_Tiles.uvShield;             break;
-                case UVType.Trap:               tmpUVs = sprite_Tiles.uvTrap;               break;
-                case UVType.Trap_InvertH:       tmpUVs = sprite_Tiles.uvTrap_InvertH;       break;
-
-                case UVType.HairHat_Down:   tmpUVs = sprite_Tiles.uvHairHat_Down;   break;
-                case UVType.HairHat_Up:     tmpUVs = sprite_Tiles.uvHairHat_Up;     break;
-                case UVType.HairHat_Left:   tmpUVs = sprite_Tiles.uvHairHat_Left;   break;
-                case UVType.HairHat_Right:  tmpUVs = sprite_Tiles.uvHairHat_Right;  break;
-                }*
-                if (tmpUVs != null) {
-                    v00 = tmpUVs[2];
-                    v11 = tmpUVs[1];
-                    return;
-                }
-                v00 = new Vector2(0,0);
-                v11 = new Vector2(1,1);
-                return;
-            }*/
             v00 = uvs[2];
             v11 = uvs[1];
         }
@@ -172,7 +88,6 @@ namespace V_AnimationSystem {
             return single.Save();
         }
         public string Save() {
-            //Returns a string to be used in savefiles
             string[] content = new string[]{
             ""+99,
             V_Animation.Save_Array<Vector2>(uvs, delegate (Vector2 vec) { return V_Animation.Save_Vector2(vec); }, "#VECTOR2ARR#"),
@@ -187,11 +102,6 @@ namespace V_AnimationSystem {
 
         public static UVType Load(string save) {
             if (!save.Contains("#UVTYPE#")) {
-                // OLD Enum based UVType
-                //Debug.LogError("OLD Enum based UVType");
-
-                //Old_UVType oldUvType = MyUtils.GetEnumFromString<Old_UVType>(save);
-                //return new UVType((int)oldUvType);
                 
                 switch (save) {
                 case "Foot":        return UVType.dFoot;
@@ -214,7 +124,6 @@ namespace V_AnimationSystem {
 
             int preset = V_Animation.Parse_Int(content[0]);
             Vector2[] uvs = V_Animation.Load_Array<Vector2>(content[1], delegate (string str) { return V_Animation.Load_Vector2(str); }, "#VECTOR2ARR#");
-            //MyUtils.StringArrPushIfIndex(2, ref content, ((Old_UVType)preset).ToString());
             V_Animation.StringArrPushIfIndex(2, ref content, "Head_Down");
             string customName = content[2];
             V_Animation.StringArrPushIfIndex(3, ref content, "0");
@@ -662,98 +571,5 @@ namespace V_AnimationSystem {
         public static UVType dChicken_BodyUp;
         public static UVType dChicken_BodyLeft;
         public static UVType dChicken_BodyRight;
-
-
-
-
-
-
-
-
-
-        /*
-        public const int Head_Down = 0;
-        public const int Head_Up = 1;
-        public const int Head_Left = 2;
-        public const int Head_Right = 3;
-
-        public const int Body_Down = 4;
-        public const int Body_Up = 5;
-        public const int Body_Left = 6;
-        public const int Body_Right = 7;
-
-        public const int Hand = 8;
-        public const int LHand = 9;
-        public const int RHand = 10;
-
-        public const int Foot = 11;
-        public const int Foot_Up = 12;
-        public const int Foot_Down = 13;
-        public const int Foot_Left = 14;
-        public const int Foot_Right = 15;
-
-        public const int Hat = 16;
-        public const int Sword = 17;
-        public const int Sword_InvertH = 18;
-        public const int Bow = 19;
-        public const int Arrow = 20;
-        public const int Shield = 21;
-        public const int Trap = 22;
-        public const int Trap_InvertH = 23;
-
-        public const int StunRock = 24;
-
-        public const int WeaponSecondary = 25;
-
-        public const int HairHat_Down = 26;
-        public const int HairHat_Up = 27;
-        public const int HairHat_Left = 28;
-        public const int HairHat_Right = 29;
-
-        public const int Custom = 99;
-        */
     }
-    /*
-    public enum Old_UVType {
-        Head_Down,
-        Head_Up,
-        Head_Left,
-        Head_Right,
-
-        Body_Down,
-        Body_Up,
-        Body_Left,
-        Body_Right,
-
-        Hand,
-        LHand,
-        RHand,
-
-        Foot,
-        Foot_Up,
-        Foot_Down,
-        Foot_Left,
-        Foot_Right,
-
-        Hat,
-        Sword,
-        Sword_InvertH,
-        Bow,
-        Arrow,
-        Shield,
-        Trap,
-        Trap_InvertH,
-
-        StunRock,
-
-        WeaponSecondary,
-
-        HairHat_Down,
-        HairHat_Up,
-        HairHat_Left,
-        HairHat_Right,
-
-        Custom,
-    }*/
-
 }

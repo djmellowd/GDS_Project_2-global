@@ -35,7 +35,6 @@ namespace V_AnimationSystem {
             return single.Save();
         }
         public string Save() {
-            //Returns a string to be used in savefiles
             string[] content = new string[]{
             ""+preset,
             ""+customName,
@@ -45,7 +44,6 @@ namespace V_AnimationSystem {
 
         public static BodyPart Load(string save) {
             if (!save.Contains("#BODYPART#")) {
-                // OLD Enum based BodyPart
                 Old_BodyPart oldBodyPart = V_Animation.GetEnumFromString<Old_BodyPart>(save);
                 return new BodyPart((int)oldBodyPart);
             }
@@ -57,11 +55,6 @@ namespace V_AnimationSystem {
 
             return new BodyPart(preset, customName);
         }
-
-
-
-
-
 
         public const int Head = 0;
         public const int Body = 1;
@@ -85,10 +78,7 @@ namespace V_AnimationSystem {
         public const int Weapon = 17;
         public const int Secondary = 18;
 
-
-
         public const int Custom = 99;
-
     }
 
     public enum Old_BodyPart {

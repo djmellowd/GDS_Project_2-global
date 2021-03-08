@@ -5,10 +5,6 @@ using UnityEngine;
 using V_AnimationSystem;
 using V_ObjectSystem;
 
-/*
- * Manages the Composite Skeleton to Aim and Shoot a Weapon
- * Doesnt manage Feet body parts
- * */
 public class V_UnitSkeleton_Composite_WeaponInvert : V_IActiveInactive {
 
     private V_Object parentObject;
@@ -21,7 +17,7 @@ public class V_UnitSkeleton_Composite_WeaponInvert : V_IActiveInactive {
     private UnitAnim activeAnimAimWeaponRight;
     private UnitAnim activeAnimShootWeaponRight;
     private Vector3 aimTargetPosition;
-    private bool usingSkeletonNormal; // Currently using Normal or inverted V anim
+    private bool usingSkeletonNormal;
     private bool isShooting;
 
     public V_UnitSkeleton_Composite_WeaponInvert(V_Object parentObject, V_UnitSkeleton unitSkeleton, UnitAnim animAimWeaponRight, UnitAnim animAimWeaponRightInvertV, UnitAnim animShootWeaponRight, UnitAnim animShootWeaponRightInvertV) {
@@ -50,7 +46,6 @@ public class V_UnitSkeleton_Composite_WeaponInvert : V_IActiveInactive {
         
         Vector3 aimDir = (aimTargetPosition - parentObject.GetPosition()).normalized;
 
-        // Decide if should use Inverted Vertical Body Part
         if (!isShooting) {
             switch (UnitAnim.GetAnimDirFromVector(aimDir)) {
             default:
@@ -81,7 +76,6 @@ public class V_UnitSkeleton_Composite_WeaponInvert : V_IActiveInactive {
             }
         }
 
-        // Show on top of Body for all except Up
         bool weaponOnTopOfBody = UnitAnim.GetAnimDirFromVectorLimit4Directions(aimDir) != UnitAnim.AnimDir.Up;
                 
         activeAnimAimWeaponRight.ApplyAimDir(aimDir, new Vector3(0, -2), weaponOnTopOfBody ? +1000 : -1000);
