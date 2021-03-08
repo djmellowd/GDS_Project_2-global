@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey;
@@ -31,16 +19,10 @@ public class GameHandler_Setup : MonoBehaviour {
     [SerializeField] private CharacterAim_Base characterAimBase;
 
     private void Start() {
-        //Sound_Manager.Init();
         cameraFollow.Setup(GetCameraPosition, () => cameraZoom == -1 ? 60f : cameraZoom, true, true);
-
-        //FunctionPeriodic.Create(SpawnEnemy, 1.5f);
-        //for (int i = 0; i < 1000; i++) SpawnEnemy();
         
         gridPathfinding = new GridPathfinding(new Vector3(-400, -400), new Vector3(400, 400), 5f);
         gridPathfinding.RaycastWalkable();
-
-        //EnemyHandler.Create(new Vector3(20, 0));
         
         if (characterAimHandler != null) {
             characterAimHandler.OnShoot += CharacterAimHandler_OnShoot;
@@ -55,13 +37,11 @@ public class GameHandler_Setup : MonoBehaviour {
         WeaponTracer.Create(e.gunEndPointPosition, e.shootPosition);
         UtilsClass.ShakeCamera(.6f, .05f);
 
-        // Any enemy hit?
         RaycastHit2D raycastHit = Physics2D.Raycast(e.gunEndPointPosition, (e.shootPosition - e.gunEndPointPosition).normalized, Vector3.Distance(e.gunEndPointPosition, e.shootPosition));
         if (raycastHit.collider != null) {
             EnemyHandler enemyHandler = raycastHit.collider.gameObject.GetComponent<EnemyHandler>();
             if (enemyHandler != null) {
                 Debug.Log("Cannot Damage!");
-                //enemyHandler.Damage(characterAimBase);
             }
         }
     }
@@ -71,7 +51,6 @@ public class GameHandler_Setup : MonoBehaviour {
         WeaponTracer.Create(e.gunEndPointPosition, e.shootPosition);
         UtilsClass.ShakeCamera(.6f, .05f);
 
-        // Any enemy hit?
         RaycastHit2D raycastHit = Physics2D.Raycast(e.gunEndPointPosition, (e.shootPosition - e.gunEndPointPosition).normalized, Vector3.Distance(e.gunEndPointPosition, e.shootPosition));
         if (raycastHit.collider != null) {
             EnemyHandler enemyHandler = raycastHit.collider.gameObject.GetComponent<EnemyHandler>();
@@ -102,15 +81,4 @@ public class GameHandler_Setup : MonoBehaviour {
         }
         EnemyHandler.Create(spawnPosition);
     }
-    /*
-    private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            Collider2D[] collider2DArray = Physics2D.OverlapAreaAll(UtilsClass.GetMouseWorldPosition(), UtilsClass.GetMouseWorldPosition());
-            Debug.Log("########");
-            foreach (Collider2D collider2D in collider2DArray) {
-                Debug.Log(collider2D);
-            }
-        }
-    }
-    */
 }

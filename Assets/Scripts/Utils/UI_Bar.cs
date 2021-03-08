@@ -1,24 +1,9 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CodeMonkey.Utils {
 
-    /*
-     * Bar in the UI with scaleable Bar and Background
-     * */
     public class UI_Bar {
         
         public GameObject gameObject;
@@ -27,9 +12,6 @@ namespace CodeMonkey.Utils {
         private RectTransform bar;
         private Vector2 size;
         
-        /* 
-         * Outline into for Bar
-         * */
         public class Outline {
             public float size = 1f;
             public Color color = Color.black;

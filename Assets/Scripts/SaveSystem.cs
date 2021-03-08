@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.IO;
+﻿using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,9 +13,7 @@ public static class SaveSystem {
     public static void Init() {
         if (!isInit) {
             isInit = true;
-            // Test if Save Folder exists
             if (!Directory.Exists(SAVE_FOLDER)) {
-                // Create Save Folder
                 Directory.CreateDirectory(SAVE_FOLDER);
             }
         }
@@ -37,13 +23,11 @@ public static class SaveSystem {
         Init();
         string saveFileName = fileName;
         if (!overwrite) {
-            // Make sure the Save Number is unique so it doesnt overwrite a previous save file
             int saveNumber = 1;
             while (File.Exists(SAVE_FOLDER + saveFileName + "." + SAVE_EXTENSION)) {
                 saveNumber++;
                 saveFileName = fileName + "_" + saveNumber;
             }
-            // saveFileName is unique
         }
         File.WriteAllText(SAVE_FOLDER + saveFileName + "." + SAVE_EXTENSION, saveString);
     }
@@ -61,9 +45,7 @@ public static class SaveSystem {
     public static string LoadMostRecentFile() {
         Init();
         DirectoryInfo directoryInfo = new DirectoryInfo(SAVE_FOLDER);
-        // Get all save files
         FileInfo[] saveFiles = directoryInfo.GetFiles("*." + SAVE_EXTENSION);
-        // Cycle through all save files and identify the most recent one
         FileInfo mostRecentFile = null;
         foreach (FileInfo fileInfo in saveFiles) {
             if (mostRecentFile == null) {
@@ -75,7 +57,6 @@ public static class SaveSystem {
             }
         }
 
-        // If theres a save file, load it, if not return null
         if (mostRecentFile != null) {
             string saveString = File.ReadAllText(mostRecentFile.FullName);
             return saveString;

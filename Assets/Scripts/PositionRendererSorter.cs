@@ -1,25 +1,10 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-    
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
- 
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeMonkey.MonoBehaviours {
 
-    /*
-     * Automatically sort a Renderer (SpriteRenderer, MeshRenderer) based on his Y position
-     * */
     public class PositionRendererSorter : MonoBehaviour {
 
-        [SerializeField] private int sortingOrderBase = 5000; // This number should be higher than what any of your sprites will be on the position.y
+        [SerializeField] private int sortingOrderBase = 5000;
         [SerializeField] private int offset = 0;
         [SerializeField] private bool runOnlyOnce = false;
 

@@ -30,7 +30,6 @@ public class UnitGridCombat : MonoBehaviour {
         characterBase = GetComponent<Character_Base>();
         selectedGameObject = transform.Find("Selected").gameObject;
         movePosition = GetComponent<MovePositionPathfinding>();
-        //SetSelectedVisible(false);
         state = State.Normal;
         healthSystem = new HealthSystem(100);
         healthBar = new World_Bar(transform, new Vector3(0, 10), new Vector3(10, 1.3f), Color.grey, Color.red, 1f, 10000, new World_Bar.Outline { color = Color.black, size = .5f });
@@ -92,7 +91,6 @@ public class UnitGridCombat : MonoBehaviour {
     private void ShootUnit(UnitGridCombat unitGridCombat, Action onShootComplete) {
         GetComponent<IMoveVelocity>().Disable();
         Vector3 attackDir = (unitGridCombat.GetPosition() - transform.position).normalized;
-        //UtilsClass.ShakeCamera(.6f, .1f);
         GameHandler_GridCombatSystem.Instance.ScreenShake();
 
         characterBase.PlayShootAnimation(attackDir, (Vector3 vec) => {
@@ -117,8 +115,6 @@ public class UnitGridCombat : MonoBehaviour {
             FlyingBody.Create(GameAssets.i.pfEnemyFlyingBody, GetPosition(), bloodDir);
             Destroy(gameObject);
         } else {
-            // Knockback
-            //transform.position += bloodDir * 5f;
         }
     }
 

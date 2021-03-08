@@ -1,22 +1,7 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeMonkey.Utils {
 
-    /*
-     * Sprite in the World
-     * */
     public class World_Sprite {
         
         private const int sortingOrderDefault = 5000;
@@ -47,7 +32,7 @@ namespace CodeMonkey.Utils {
             if (color.r >= 1f) color.r = .9f;
             if (color.g >= 1f) color.g = .9f;
             if (color.b >= 1f) color.b = .9f;
-            Color colorOver = color * 1.1f; // button over color lighter
+            Color colorOver = color * 1.1f;
 
             World_Sprite worldSprite = new World_Sprite(gameObject.transform, Vector3.zero, rendererBounds.size + new Vector3(paddingX, paddingY), Assets.i.s_White, color, sortingOrderDefault);
             worldSprite.AddButton(ClickFunc, () => worldSprite.SetColor(colorOver), () => worldSprite.SetColor(color));

@@ -1,15 +1,3 @@
-/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
- 
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +15,6 @@ namespace GridPathfindingSystem {
             Simple,
         }
 
-        //private List<PathNode> openList;
         private BinaryTree binaryTree;
         private int openListCount;
         private PathNode[][] mapNodes;
@@ -117,8 +104,6 @@ namespace GridPathfindingSystem {
             mapNodes = newMapNodes;
 
             UpdateNodeConnections();
-
-            //if (OnSizeModified != null) OnSizeModified(this, EventArgs.Empty);
         }
 
         public Vector3 GetWorldOffset() {
@@ -229,17 +214,13 @@ namespace GridPathfindingSystem {
             PrintMap(
                 (int x, int y) => {
                     createSprite(worldOrigin + new Vector3(x * nodeSize, y * nodeSize), new Vector3(2, 2), Color.green);
-                //MyUtils.World_Sprite.Create(worldOrigin + new Vector3(x * nodeSize, y * nodeSize), new Vector3(2, 2), SpriteHolder.instance.s_White, Color.green);
             },
                 (int x, int y) => {
                     createSprite(worldOrigin + new Vector3(x * nodeSize, y * nodeSize), new Vector3(2, 2), Color.red);
-                //MyUtils.World_Sprite.Create(worldOrigin + new Vector3(x * nodeSize, y * nodeSize), new Vector3(2, 2), SpriteHolder.instance.s_White, Color.red);
             }
             );
         }
 
-        /*public void PrintMapUpdateable() {
-        }*/
         private bool IsValidShortcut(int startX, int startY, int endX, int endY) {
             //Debug.Log("Testing Shortcut: " + startX + ", " + startY + " -> " + endX + ", " + endY);
             int shortcutWeight = mapNodes[startX][startY].weight;
@@ -247,22 +228,15 @@ namespace GridPathfindingSystem {
             Vector3 test = new Vector3(startX, startY) + dir;
             int testX = Mathf.RoundToInt(test.x);
             int testY = Mathf.RoundToInt(test.y);
-            // Check if shortcut is walkable
-            //Debug.Log("Testing: "+testX+","+testY);
             while (!(testX == endX && testY == endY)) {
                 if (!IsWalkable(testX, testY) || mapNodes[testX][testY].weight != shortcutWeight) {
-                    // Not walkable
-                    //Debug.Log("Shortcut invalid!");
                     return false;
                 } else {
                     test += dir;
                     testX = Mathf.RoundToInt(test.x);
                     testY = Mathf.RoundToInt(test.y);
-                    //Debug.Log("Testing: "+testX+","+testY);
                 }
             }
-            // Shortcut walkable
-            //Debug.Log("Shortcut valid!");
             return true;
         }
 
@@ -275,11 +249,11 @@ namespace GridPathfindingSystem {
             if (startPos.x < 0 || startPos.y < 0 || finalPos.x < 0 || finalPos.y < 0 ||
                 startPos.x >= width || finalPos.x >= width ||
                 startPos.y >= height || finalPos.y >= height) {
-                return null; //Out of bounds!
+                return null;
             }
             if (mapNodes[finalPos.x][finalPos.y].weight == WALL_WEIGHT ||
                 mapNodes[startPos.x][startPos.y].weight == WALL_WEIGHT)
-                return null; //Wall
+                return null;
 
             return findPath(startPos.x, startPos.y, finalPos.x, finalPos.y);
         }
@@ -324,20 +298,17 @@ namespace GridPathfindingSystem {
                 if (startX < 0 || startY < 0 || finalPos.x < 0 || finalPos.y < 0 ||
                     startX >= width || finalPos.x >= width ||
                     startY >= height || finalPos.y >= height) {
-                    continue; // Out of bounds!
+                    continue;
                 }
                 if (mapNodes[finalPos.x][finalPos.y].weight == WALL_WEIGHT ||
                     mapNodes[startX][startY].weight == WALL_WEIGHT) {
-                    // Find close non-wall start/end
-                    continue; // Wall
+                    continue;
                 }
 
                 List<PathNode> currentPath = findPath(startX, startY, finalPos.x, finalPos.y);
                 if (currentPath.Count <= 0 && (startX != finalPos.x || startY != finalPos.y)) {
-                    // Don't add path if there's no path
                 } else {
                     if (!finalPos.straightToOffset) {
-                        // Don't go straight to offset, add dummy
                         currentPath.Add(currentPath[currentPath.Count - 1]);
                     }
                     paths.Add(new PathRoute(currentPath, worldOrigin, nodeSize, finalPos));
@@ -350,7 +321,6 @@ namespace GridPathfindingSystem {
             }
 
             if (paths.Count <= 0 || (paths.Count > 0 && paths[smallest].pathNodeList.Count <= 0)) {
-                // No path
                 return false;
             } else {
                 callback(paths[smallest].pathNodeList, paths[smallest].finalPos);
@@ -369,13 +339,11 @@ namespace GridPathfindingSystem {
         private MapPos GetClosestValidPos(int mapX, int mapY) {
             int width = widthMax;
             int height = heightMax;
-            // Inside bounds
             while (mapX < 0) mapX++;
             while (mapY < 0) mapY++;
             while (mapX >= width) mapX--;
             while (mapY >= height) mapY--;
 
-            // Check inside walls
             if (mapNodes[mapX][mapY].weight == WALL_WEIGHT) {
                 int radius = 1;
                 MapPos valid = null;
@@ -397,7 +365,6 @@ namespace GridPathfindingSystem {
             for (int i = mapX - radius; i <= endX; i++) {
                 int j = mapY + radius;
                 if (i < 0 || i >= width || j < 0 || j >= height) {
-                    //Out of bounds
                 } else {
                     if (mapNodes[i][j].weight != WALL_WEIGHT)
                         return new MapPos(i, j);
@@ -405,7 +372,6 @@ namespace GridPathfindingSystem {
 
                 j = mapY - radius;
                 if (i < 0 || i >= width || j < 0 || j >= height) {
-                    //Out of bounds
                 } else {
                     if (mapNodes[i][j].weight != WALL_WEIGHT)
                         return new MapPos(i, j);
@@ -416,7 +382,6 @@ namespace GridPathfindingSystem {
             for (int j = mapY - radius + 1; j < endY; j++) {
                 int i = mapX - radius;
                 if (i < 0 || i >= width || j < 0 || j >= height) {
-                    //Out of bounds
                 } else {
                     if (mapNodes[i][j].weight != WALL_WEIGHT)
                         return new MapPos(i, j);
@@ -424,7 +389,6 @@ namespace GridPathfindingSystem {
 
                 i = mapX + radius;
                 if (i < 0 || i >= width || j < 0 || j >= height) {
-                    //Out of bounds
                 } else {
                     if (mapNodes[i][j].weight != WALL_WEIGHT)
                         return new MapPos(i, j);
@@ -437,24 +401,18 @@ namespace GridPathfindingSystem {
         public void ApplyShortcuts(ref List<PathNode> pathNodeList) {
             if (pathNodeList.Count > 1) {
                 int testStartNodeIndex = 1;
-                while (testStartNodeIndex < pathNodeList.Count - 2) { // Only test untils there's 3 nodes left
+                while (testStartNodeIndex < pathNodeList.Count - 2) {
                     PathNode testStartNode = pathNodeList[testStartNodeIndex];
                     int testEndNodeIndex = testStartNodeIndex + 2;
-                    // Test start node with node 2 indexes in front
                     PathNode testEndNode = pathNodeList[testEndNodeIndex];
                     while (IsValidShortcut(testStartNode.xPos, testStartNode.yPos, testEndNode.xPos, testEndNode.yPos)) {
-                        // Valid shortcut
-                        // Remove in between node
                         pathNodeList.RemoveAt(testStartNodeIndex + 1);
                         if (testEndNodeIndex >= pathNodeList.Count - 1) {
-                            // No more nodes
                             break;
                         } else {
-                            // Test next node
                             testEndNode = pathNodeList[testEndNodeIndex];
                         }
                     }
-                    // Start next shortcut test from this end node
                     testStartNodeIndex = testEndNodeIndex;
                 }
             }
@@ -487,10 +445,8 @@ namespace GridPathfindingSystem {
 
         public List<PathNode> findPath(int startX, int startY, int endX, int endY) {
             List<PathNode> ret = new List<PathNode>();
-            // Calculate H for all nodes
             CalculateAllHeuristics(endX, endY);
 
-            // Start finding target
             foundTarget = false;
             binaryTree = new BinaryTree();
             openListCount = 1;
@@ -509,7 +465,6 @@ namespace GridPathfindingSystem {
             if (iterations >= 60000) UnityEngine.Debug.Log("iteration overload");
 
             if (foundTarget) {
-                // Get path
                 currentNode = targetNode;
                 ret.Add(currentNode);
                 while (currentNode.parent != null && currentNode.parent != currentNode) {
@@ -518,7 +473,6 @@ namespace GridPathfindingSystem {
                 }
                 if (currentNode.parent == currentNode) UnityEngine.Debug.Log("parent == child");
             } else {
-                // No path possible
             }
             ret.Reverse();
 
@@ -526,21 +480,15 @@ namespace GridPathfindingSystem {
         }
 
         private PathNode FindTarget(PathNode currentNode, PathNode targetNode) {
-            // Check the north node
             if (currentNode.moveNorth) DetermineNodeValues(currentNode, currentNode.north, targetNode);
-            // Check the east node
             if (currentNode.moveEast) DetermineNodeValues(currentNode, currentNode.east, targetNode);
-            // Check the south node
             if (currentNode.moveSouth) DetermineNodeValues(currentNode, currentNode.south, targetNode);
-            // Check the west node
             if (currentNode.moveWest) DetermineNodeValues(currentNode, currentNode.west, targetNode);
 
             if (!foundTarget) {
-                // Once done checking add to the closed list and remove from the open list
                 AddToClosedList(currentNode);
                 RemoveFromOpenList(currentNode);
 
-                // Get the next node with the smallest F value
                 return GetSmallestFValueNode();
             } else {
                 return null;
@@ -548,29 +496,22 @@ namespace GridPathfindingSystem {
         }
 
         private void DetermineNodeValues(PathNode currentNode, PathNode testing, PathNode targetNode) {
-            // Dont work on null nodes
             if (testing == null)
                 return;
 
-            // Check to see if the node is the target
             if (testing == targetNode) {
                 targetNode.parent = currentNode;
                 foundTarget = true;
                 return;
             }
 
-            // Ignore Walls
             if (currentNode.weight == WALL_WEIGHT || testing.weight == WALL_WEIGHT)
                 return;
 
-            // While the node has not already been tested
             if (!testing.isOnClosedList) {
-                // Check to see if the node is already on the open list
                 if (testing.isOnOpenList) {
-                    // Get a Gcost to move from this node to the testing node
                     int newGcost = currentNode.gValue + currentNode.weight + movementCost;
 
-                    // If the G cost is better then change the nodes parent and update its costs.
                     if (newGcost < testing.gValue) {
                         testing.parent = currentNode;
                         testing.gValue = newGcost;
@@ -579,7 +520,6 @@ namespace GridPathfindingSystem {
                         binaryTree.AddNode(testing);
                     }
                 } else {
-                    // Set the testing nodes parent to the current location, calculate its costs, and add it to the open list
                     testing.parent = currentNode;
                     testing.gValue = currentNode.gValue + currentNode.weight + movementCost;
                     testing.CalculateFValue();
@@ -638,12 +578,10 @@ namespace GridPathfindingSystem {
                     mapNodes[x][y].TestHitbox();
                 }
             }
-            //Event_Speaker.Broadcast(Event_Trigger.Pathfinding_Refresh);
         }
 
         public void RefreshHitbox(MapPos mapPos) {
             mapNodes[mapPos.x][mapPos.y].TestHitbox();
-            //Event_Speaker.Broadcast(Event_Trigger.Pathfinding_Refresh);
         }
 
         public bool IsWalkable(MapPos mapPos) {

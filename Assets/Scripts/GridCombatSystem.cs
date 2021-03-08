@@ -31,7 +31,6 @@ public class GridCombatSystem : MonoBehaviour {
         blueTeamActiveUnitIndex = -1;
         redTeamActiveUnitIndex = -1;
 
-        // Set all UnitGridCombat on their GridPosition
         foreach (UnitGridCombat unitGridCombat in unitGridCombatArray) {
             GameHandler_GridCombatSystem.Instance.GetGrid().GetGridObject(unitGridCombat.GetPosition())
                 .SetUnitGridCombat(unitGridCombat);
@@ -63,7 +62,6 @@ public class GridCombatSystem : MonoBehaviour {
         if (team == UnitGridCombat.Team.Blue) {
             blueTeamActiveUnitIndex = (blueTeamActiveUnitIndex + 1) % blueTeamList.Count;
             if (blueTeamList[blueTeamActiveUnitIndex] == null || blueTeamList[blueTeamActiveUnitIndex].IsDead()) {
-                // Unit is Dead, get next one
                 return GetNextActiveUnit(team);
             } else {
                 return blueTeamList[blueTeamActiveUnitIndex];
@@ -71,7 +69,6 @@ public class GridCombatSystem : MonoBehaviour {
         } else {
             redTeamActiveUnitIndex = (redTeamActiveUnitIndex + 1) % redTeamList.Count;
             if (redTeamList[redTeamActiveUnitIndex] == null || redTeamList[redTeamActiveUnitIndex].IsDead()) {
-                // Unit is Dead, get next one
                 return GetNextActiveUnit(team);
             } else {
                 return redTeamList[redTeamActiveUnitIndex];
@@ -83,15 +80,12 @@ public class GridCombatSystem : MonoBehaviour {
         Grid<GridObject> grid = GameHandler_GridCombatSystem.Instance.GetGrid();
         GridPathfinding gridPathfinding = GameHandler_GridCombatSystem.Instance.gridPathfinding;
 
-        // Get Unit Grid Position X, Y
         grid.GetXY(unitGridCombat.GetPosition(), out int unitX, out int unitY);
 
-        // Set entire Tilemap to Invisible
         GameHandler_GridCombatSystem.Instance.GetMovementTilemap().SetAllTilemapSprite(
             MovementTilemap.TilemapObject.TilemapSprite.None
         );
 
-        // Reset Entire Grid ValidMovePositions
         for (int x = 0; x < grid.GetWidth(); x++) {
             for (int y = 0; y < grid.GetHeight(); y++) {
                 grid.GetGridObject(x, y).SetIsValidMovePosition(false);
@@ -102,26 +96,19 @@ public class GridCombatSystem : MonoBehaviour {
         for (int x = unitX - maxMoveDistance; x <= unitX + maxMoveDistance; x++) {
             for (int y = unitY - maxMoveDistance; y <= unitY + maxMoveDistance; y++) {
                 if (gridPathfinding.IsWalkable(x, y)) {
-                    // Position is Walkable
                     if (gridPathfinding.HasPath(unitX, unitY, x, y)) {
-                        // There is a Path
                         if (gridPathfinding.GetPath(unitX, unitY, x, y).Count <= maxMoveDistance) {
-                            // Path within Move Distance
 
-                            // Set Tilemap Tile to Move
                             GameHandler_GridCombatSystem.Instance.GetMovementTilemap().SetTilemapSprite(
                                 x, y, MovementTilemap.TilemapObject.TilemapSprite.Move
                             );
 
                             grid.GetGridObject(x, y).SetIsValidMovePosition(true);
                         } else { 
-                            // Path outside Move Distance!
                         }
                     } else {
-                        // No valid Path
                     }
                 } else {
-                    // Position is not Walkable
                 }
             }
         }
@@ -134,16 +121,11 @@ public class GridCombatSystem : MonoBehaviour {
                     Grid<GridObject> grid = GameHandler_GridCombatSystem.Instance.GetGrid();
                     GridObject gridObject = grid.GetGridObject(UtilsClass.GetMouseWorldPosition());
 
-                    // Check if clicking on a unit position
                     if (gridObject.GetUnitGridCombat() != null) {
-                        // Clicked on top of a Unit
                         if (unitGridCombat.IsEnemy(gridObject.GetUnitGridCombat())) {
-                            // Clicked on an Enemy of the current unit
                             if (unitGridCombat.CanAttackUnit(gridObject.GetUnitGridCombat())) {
-                                // Can Attack Enemy
                                 if (canAttackThisTurn) {
                                     canAttackThisTurn = false;
-                                    // Attack Enemy
                                     state = State.Waiting;
                                     unitGridCombat.AttackUnit(gridObject.GetUnitGridCombat(), () => {
                                         state = State.Normal;
@@ -151,33 +133,26 @@ public class GridCombatSystem : MonoBehaviour {
                                     });
                                 }
                             } else {
-                                // Cannot attack enemy
                                 CodeMonkey.CMDebug.TextPopupMouse("Cannot attack!");
                             }
                             break;
                         } else {
-                            // Not an enemy
                         }
                     } else {
-                        // No unit here
                     }
 
                     if (gridObject.GetIsValidMovePosition()) {
-                        // Valid Move Position
 
                         if (canMoveThisTurn) {
                             canMoveThisTurn = false;
 
                             state = State.Waiting;
 
-                            // Set entire Tilemap to Invisible
                             GameHandler_GridCombatSystem.Instance.GetMovementTilemap().SetAllTilemapSprite(
                                 MovementTilemap.TilemapObject.TilemapSprite.None
                             );
 
-                            // Remove Unit from current Grid Object
                             grid.GetGridObject(unitGridCombat.GetPosition()).ClearUnitGridCombat();
-                            // Set Unit on target Grid Object
                             gridObject.SetUnitGridCombat(unitGridCombat);
 
                             unitGridCombat.MoveTo(UtilsClass.GetMouseWorldPosition(), () => {
@@ -200,7 +175,6 @@ public class GridCombatSystem : MonoBehaviour {
 
     private void TestTurnOver() {
         if (!canMoveThisTurn && !canAttackThisTurn) {
-            // Cannot move or attack, turn over
             ForceTurnOver();
         }
     }

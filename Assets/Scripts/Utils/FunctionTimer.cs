@@ -1,29 +1,11 @@
-/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
 using System;
 using UnityEngine;
 using System.Collections.Generic;
 
 namespace CodeMonkey.Utils {
 
-    /*
-     * Triggers a Action after a certain time 
-     * */
     public class FunctionTimer {
 
-        /*
-         * Class to hook Actions into MonoBehaviour
-         * */
         private class MonoBehaviourHook : MonoBehaviour {
 
             public Action OnUpdate;
@@ -123,7 +105,6 @@ namespace CodeMonkey.Utils {
                 timer -= Time.deltaTime;
             }
             if (timer <= 0) {
-                // Timer complete, trigger Action
                 action();
                 DestroySelf();
             }
@@ -136,11 +117,6 @@ namespace CodeMonkey.Utils {
         }
 
 
-
-
-        /*
-         * Class to trigger Actions manually without creating a GameObject
-         * */
         public class FunctionTimerObject {
 
             private float timer;
@@ -162,7 +138,6 @@ namespace CodeMonkey.Utils {
             }
         }
 
-        // Create a Object that must be manually updated through Update();
         public static FunctionTimerObject CreateObject(Action callback, float timer) {
             return new FunctionTimerObject(callback, timer);
         }

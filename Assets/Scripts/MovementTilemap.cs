@@ -40,10 +40,6 @@ public class MovementTilemap {
     }
 
 
-
-    /*
-     * Save - Load
-     * */
     public class SaveObject {
         public TilemapObject.SaveObject[] tilemapObjectSaveObjectArray;
     }
@@ -72,10 +68,6 @@ public class MovementTilemap {
     }
 
 
-
-    /*
-     * Represents a single Tilemap Object that exists in each Grid Cell Position
-     * */
     public class TilemapObject {
 
         public enum TilemapSprite {
@@ -116,9 +108,6 @@ public class MovementTilemap {
             public int y;
         }
 
-        /*
-         * Save - Load
-         * */
         public SaveObject Save() {
             return new SaveObject { 
                 tilemapSprite = tilemapSprite,

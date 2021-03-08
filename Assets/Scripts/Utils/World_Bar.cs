@@ -1,22 +1,7 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeMonkey.Utils {
 
-    /*
-     * Bar in the World, great for quickly making a health bar
-     * */
     public class World_Bar {
         
         private Outline outline;
@@ -69,16 +54,12 @@ namespace CodeMonkey.Utils {
             bar.localScale = new Vector3(sizeRatio, 1, 1);
         }
         public void SetLocalScale(Vector3 localScale) {
-            // Outline
             if (transform.Find("Outline") != null) {
-                // Has outline
                 transform.Find("Outline").localScale = localScale + new Vector3(outline.size, outline.size);
             }
 
-            //Background
             background.localScale = localScale;
 
-            // Set Bar Scale
             bar.localPosition = new Vector3(-localScale.x / 2f, 0, 0);
             Transform barIn = bar.Find("BarIn");
             barIn.localScale = localScale;

@@ -1,23 +1,8 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
 using CodeMonkey.Utils;
 
-/*
- * Character Base Class
- * */
 public class Character_Base : MonoBehaviour, ICharacterAnims, IGetPosition {
     
     #region BaseSetup
@@ -154,9 +139,6 @@ public class Character_Base : MonoBehaviour, ICharacterAnims, IGetPosition {
         unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dMarine_Attack"), dir, 1f, (UnitAnim unitAnim2) => {
             if (onAnimComplete != null) onAnimComplete();
         }, (string trigger) => {
-            /*foreach (string key in (unitSkeleton.GetSkeletonUpdater() as V_Skeleton_Updater).bodyPartNameAnimDic.Keys) {
-                Debug.Log(key);
-            }*/
             Vector3 shootGunEndPointPosition = unitSkeleton.GetBodyPartPosition("MuzzleFlash");
             if (onHit != null) {
                 onHit(shootGunEndPointPosition);

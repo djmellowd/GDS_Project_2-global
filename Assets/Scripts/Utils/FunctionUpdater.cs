@@ -1,29 +1,11 @@
-/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
 using System;
 using UnityEngine;
 using System.Collections.Generic;
 
 namespace CodeMonkey.Utils {
 
-    /*
-     * Calls function on every Update until it returns true
-     * */
     public class FunctionUpdater {
 
-        /*
-         * Class to hook Actions into MonoBehaviour
-         * */
         private class MonoBehaviourHook : MonoBehaviour {
 
             public Action OnUpdate;
@@ -34,8 +16,8 @@ namespace CodeMonkey.Utils {
 
         }
 
-        private static List<FunctionUpdater> updaterList; // Holds a reference to all active updaters
-        private static GameObject initGameObject; // Global game object used for initializing class, is destroyed on scene change
+        private static List<FunctionUpdater> updaterList;
+        private static GameObject initGameObject;
 
         private static void InitIfNeeded() {
             if (initGameObject == null) {
@@ -109,7 +91,7 @@ namespace CodeMonkey.Utils {
         private GameObject gameObject;
         private string functionName;
         private bool active;
-        private Func<bool> updateFunc; // Destroy Updater if return true;
+        private Func<bool> updateFunc;
 
         public FunctionUpdater(GameObject gameObject, Func<bool> updateFunc, string functionName, bool active) {
             this.gameObject = gameObject;

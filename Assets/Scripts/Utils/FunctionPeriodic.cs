@@ -1,29 +1,11 @@
-/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace CodeMonkey.Utils {
 
-    /*
-     * Executes a Function periodically
-     * */
     public class FunctionPeriodic {
 
-        /*
-         * Class to hook Actions into MonoBehaviour
-         * */
         private class MonoBehaviourHook : MonoBehaviour {
 
             public Action OnUpdate;
@@ -35,8 +17,8 @@ namespace CodeMonkey.Utils {
         }
 
 
-        private static List<FunctionPeriodic> funcList; // Holds a reference to all active timers
-        private static GameObject initGameObject; // Global game object used for initializing class, is destroyed on scene change
+        private static List<FunctionPeriodic> funcList;
+        private static GameObject initGameObject;
 
         private static void InitIfNeeded() {
             if (initGameObject == null) {
@@ -46,8 +28,6 @@ namespace CodeMonkey.Utils {
         }
 
 
-
-        // Persist through scene loads
         public static FunctionPeriodic Create_Global(Action action, Func<bool> testDestroy, float timer) {
             FunctionPeriodic functionPeriodic = Create(action, testDestroy, timer, "", false, false, false);
             MonoBehaviour.DontDestroyOnLoad(functionPeriodic.gameObject);
@@ -55,7 +35,6 @@ namespace CodeMonkey.Utils {
         }
 
 
-        // Trigger [action] every [timer], execute [testDestroy] after triggering action, destroy if returns true
         public static FunctionPeriodic Create(Action action, Func<bool> testDestroy, float timer) {
             return Create(action, testDestroy, timer, "", false);
         }
@@ -159,10 +138,8 @@ namespace CodeMonkey.Utils {
             if (timer <= 0) {
                 action();
                 if (testDestroy != null && testDestroy()) {
-                    //Destroy
                     DestroySelf();
                 } else {
-                    //Repeat
                     timer += baseTimer;
                 }
             }

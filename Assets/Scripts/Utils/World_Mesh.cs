@@ -1,22 +1,7 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeMonkey.Utils {
 
-    /*
-     * Mesh in the World
-     * */
     public class World_Mesh {
         
         private const int sortingOrderDefault = 5000;
@@ -69,12 +54,6 @@ namespace CodeMonkey.Utils {
             vertices = new Vector3[4];
             uv = new Vector2[4];
             triangles = new int[6];
-
-            /* 0,1
-             * 1,1
-             * 0,0
-             * 1,0
-             */
             
             float meshWidthHalf  = meshWidth  / 2f;
             float meshHeightHalf = meshHeight / 2f;
@@ -124,11 +103,6 @@ namespace CodeMonkey.Utils {
         }
 
         private Vector2[] GetUVRectangleFromPixels(int x, int y, int width, int height, int textureWidth, int textureHeight) {
-            /* 0, 1
-             * 1, 1
-             * 0, 0
-             * 1, 0
-             * */
             return new Vector2[] { 
                 ConvertPixelsToUVCoordinates(x, y + height, textureWidth, textureHeight),
                 ConvertPixelsToUVCoordinates(x + width, y + height, textureWidth, textureHeight),

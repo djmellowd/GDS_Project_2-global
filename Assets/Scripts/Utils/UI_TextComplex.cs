@@ -1,23 +1,8 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading the Code Monkey Utilities
-    I hope you find them useful in your projects
-    If you have any questions use the contact form
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace CodeMonkey.Utils {
     
-    /*
-     * Displays text with icons in between the text
-     * */
     public class UI_TextComplex {
         
         private static Transform GetCanvasTransform() {
@@ -43,10 +28,6 @@ namespace CodeMonkey.Utils {
         private Transform transform;
         private RectTransform rectTransform;
 
-        // iconChar prepends the iconArr index; 
-        // Example using iconChar '#': 
-        //      test #0 asdf
-        // Displays "test [iconArr[0]] asdf"
         public UI_TextComplex(Transform parent, Vector2 anchoredPosition, int fontSize, char iconChar, string text, Icon[] iconArr, Font font) {
             SetupParent(parent, anchoredPosition);
             string tmp = text;
@@ -56,17 +37,14 @@ namespace CodeMonkey.Utils {
                 string iconNumber = tmp.Substring(tmp.IndexOf(iconChar)+1);
                 int indexOfSpaceAfterIconNumber = iconNumber.IndexOf(" ");
                 if (indexOfSpaceAfterIconNumber != -1) {
-                    // Still has more space after iconNumber
                     iconNumber = iconNumber.Substring(0, indexOfSpaceAfterIconNumber);
                 } else {
-                    // No more space after iconNumber
                 }
                 tmp = tmp.Substring(tmp.IndexOf(iconChar+iconNumber) + (iconChar+iconNumber).Length);
                 if (untilTmp.Trim() != "") {
                     Text uiText = UtilsClass.DrawTextUI(untilTmp, transform, new Vector2(textPosition,0), fontSize, font);
                     textPosition += uiText.preferredWidth;
                 }
-                // Draw Icon
                 int iconIndex = UtilsClass.Parse_Int(iconNumber, 0);
                 Icon icon = iconArr[iconIndex];
                 UtilsClass.DrawSprite(icon.sprite, transform, new Vector2(textPosition + icon.size.x / 2f, 0), icon.size);

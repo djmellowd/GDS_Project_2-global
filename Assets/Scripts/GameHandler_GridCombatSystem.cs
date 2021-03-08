@@ -37,28 +37,6 @@ public class GameHandler_GridCombatSystem : MonoBehaviour {
 
     private void Start() {
         movementTilemap.SetTilemapVisual(movementTilemapVisual);
-        /*
-        movementTilemap.SetAllTilemapSprite(MovementTilemap.TilemapObject.TilemapSprite.Move);
-        grid.GetXY(new Vector3(171.5f, 128.5f), out int testX, out int testY);
-        FunctionTimer.Create(() => {
-            movementTilemap.SetAllTilemapSprite(MovementTilemap.TilemapObject.TilemapSprite.None);
-            movementTilemap.SetTilemapSprite(testX + 0, testY + 0, MovementTilemap.TilemapObject.TilemapSprite.Move);
-            movementTilemap.SetTilemapSprite(testX + 1, testY + 0, MovementTilemap.TilemapObject.TilemapSprite.Move);
-            movementTilemap.SetTilemapSprite(testX - 1, testY + 0, MovementTilemap.TilemapObject.TilemapSprite.Move);
-            movementTilemap.SetTilemapSprite(testX + 0, testY + 1, MovementTilemap.TilemapObject.TilemapSprite.Move);
-            movementTilemap.SetTilemapSprite(testX + 0, testY - 1, MovementTilemap.TilemapObject.TilemapSprite.Move);
-
-            movementTilemap.SetTilemapSprite(testX + 2, testY + 0, MovementTilemap.TilemapObject.TilemapSprite.Move);
-            movementTilemap.SetTilemapSprite(testX + 1, testY + 1, MovementTilemap.TilemapObject.TilemapSprite.Move);
-            movementTilemap.SetTilemapSprite(testX + 1, testY - 1, MovementTilemap.TilemapObject.TilemapSprite.Move);
-
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 5; j++) {
-                    movementTilemap.SetTilemapSprite(testX + i, testY + j, MovementTilemap.TilemapObject.TilemapSprite.Move);
-                }
-            }
-        }, 1f);
-        */
     }
 
     private void Update() {
