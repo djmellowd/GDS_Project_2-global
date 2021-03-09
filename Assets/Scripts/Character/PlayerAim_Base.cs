@@ -25,11 +25,6 @@ public class PlayerAim_Base : MonoBehaviour {
     private Vector3 lastMoveDir;
 
     private void Start() {
-        /*
-        Transform bodyTransform = transform.Find("Body");
-        unitSkeleton = new V_UnitSkeleton(1f, bodyTransform.TransformPoint, (Mesh mesh) => bodyTransform.GetComponent<MeshFilter>().mesh = mesh);
-        unitAnimation = new V_UnitAnimation(unitSkeleton);
-        */
         
         vObject = CreateBasicUnit(transform, GetPosition(), 30f, null);
         unitAnimation = vObject.GetLogic<V_UnitAnimation>();
@@ -80,78 +75,6 @@ public class PlayerAim_Base : MonoBehaviour {
     }
 
     private void Update() {
-        /*
-        Vector3 targetPosition = UtilsClass.GetMouseWorldPosition();
-        aimDir = (targetPosition - vObject.GetPosition()).normalized;
-            
-        // Check for hits
-        Vector3 gunEndPointPosition = vObject.GetLogic<V_UnitSkeleton>().GetBodyPartPosition("MuzzleFlash");
-        RaycastHit2D raycastHit = Physics2D.Raycast(gunEndPointPosition, (targetPosition - gunEndPointPosition).normalized, Vector3.Distance(gunEndPointPosition, targetPosition));
-        if (raycastHit.collider != null) {
-            // Hit something
-            targetPosition = raycastHit.point;
-        }
-
-        unitSkeletonCompositeWeapon.SetAimTarget(targetPosition);
-
-        if (canShoot && Input.GetMouseButton(0)) {
-            // Shoot
-            canShoot = false;
-            // Replace Body and Head with Attack
-            unitSkeleton.ReplaceBodyPartSkeletonAnim(GameAssets.UnitAnimTypeEnum.dMarine_Attack.GetUnitAnim(aimDir), "Body", "Head");
-            // Shoot Composite Skeleton
-            unitSkeletonCompositeWeapon.Shoot(targetPosition, () => {
-                canShoot = true;
-            });
-
-            // Add Effects
-            Vector3 shootFlashPosition = vObject.GetLogic<V_UnitSkeleton>().GetBodyPartPosition("MuzzleFlash");
-            if (OnShoot != null) OnShoot(this, new OnShootEventArgs { gunEndPointPosition = shootFlashPosition, shootPosition = targetPosition });
-        }
-        */
-
-        /*
-        // Manual Movement
-        bool isMoving = false;
-        Vector3 moveDir = new Vector3(0, 0);
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
-            moveDir.y = +1; isMoving = true;
-        }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
-            moveDir.y = -1; isMoving = true;
-        }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
-            moveDir.x = -1; isMoving = true;
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
-            moveDir.x = +1; isMoving = true;
-        }
-        moveDir.Normalize();
-
-        float moveSpeed = 50f;
-        Vector3 targetMoveToPosition = objectTransform.GetPosition() + moveDir * moveSpeed * Time.deltaTime;
-        // Test if can move there
-        raycastHit = Physics2D.Raycast(GetPosition() + moveDir * .1f, moveDir, Vector3.Distance(GetPosition(), targetMoveToPosition));
-        if (raycastHit.collider != null) {
-            // Hit something
-        } else {
-            // Can move, no wall
-            objectTransform.SetPosition(targetMoveToPosition);
-        }
-
-        if (isMoving) {
-            Dirt_Handler.SpawnInterval(GetPosition(), moveDir * -1f);
-        }
-            
-
-        // Update Feet
-        unitSkeletonCompositeWalker_Feet.UpdateBodyParts(isMoving, moveDir);
-
-        if (canShoot) {
-            // Update Head and Body parts only when Not Shooting
-            unitSkeletonCompositeWalker_BodyHead.UpdateBodyParts(isMoving, aimDir);
-        }
-        */
     }
 
     public V_UnitAnimation GetUnitAnimation() {
