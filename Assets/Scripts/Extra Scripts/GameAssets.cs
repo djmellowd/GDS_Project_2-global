@@ -13,9 +13,6 @@ public class GameAssets : MonoBehaviour {
         }
     }
 
-
-
-
     public Sprite s_ShootFlash;
     
     public Transform pfSwordSlash;
@@ -38,12 +35,6 @@ public class GameAssets : MonoBehaviour {
     public Material m_DoorKeyHoleRed;
     public Material m_DoorKeyHoleGreen;
     public Material m_DoorKeyHoleBlue;
-
-
-
-
-
-    
     public static class UnitAnimTypeEnum {
 
         static UnitAnimTypeEnum() {
@@ -77,12 +68,7 @@ public class GameAssets : MonoBehaviour {
 
         public static UnitAnimType dBareHands_Idle;
         public static UnitAnimType dBareHands_Walk;
-        
-
     }
-
-
-
 
     public static class UnitAnimEnum {
 
@@ -100,7 +86,5 @@ public class GameAssets : MonoBehaviour {
         public static UnitAnim dMarine_AimWeaponRightInvertV;
         public static UnitAnim dMarine_ShootWeaponRight;
         public static UnitAnim dMarine_ShootWeaponRightInvertV;
-        
     }
-
 }
