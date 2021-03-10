@@ -102,7 +102,7 @@ ScriptedImporter:
     internalID: 0
     spriteBone:
     - name: head
-      position: {x: 53.643776, y: 0.0646286, z: 0}
+      position: {x: 53.64376, y: 0.06464386, z: 0}
       rotation: {x: 0, y: 0, z: 0.7085312, w: 0.7056795}
       length: 88.30465
       parentId: -1
@@ -432,10 +432,10 @@ ScriptedImporter:
     - name: upper torso
       position: {x: 28.13133, y: -0.000020654628, z: 0}
       rotation: {x: 0, y: 0, z: 0.0023670322, w: 0.9999972}
-      length: 40.953663
+      length: 40.95368
       parentId: 0
     - name: head
-      position: {x: 40.95366, y: 0.00007989827, z: 0}
+      position: {x: 40.953674, y: 0.000079632904, z: 0}
       rotation: {x: 0, y: 0, z: -0.0066795335, w: 0.9999777}
       length: 88.30464
       parentId: 1
@@ -613,8 +613,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 2.4169998, y: 61.033005}
       boneWeight:
-        weight0: 0.9388871
-        weight1: 0.05075666
+        weight0: 0.9388872
+        weight1: 0.050756663
         weight2: 0.01035615
         weight3: 0
         boneIndex0: 1
@@ -623,7 +623,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 0.43899536, y: 52.686}
       boneWeight:
-        weight0: 0.95224166
+        weight0: 0.9522417
         weight1: 0.047758263
         weight2: 0
         weight3: 0
@@ -1728,7 +1728,7 @@ ScriptedImporter:
     internalID: 0
     spriteBone:
     - name: foot L
-      position: {x: 20.176052, y: 0.000043776465, z: 0}
+      position: {x: 20.176056, y: 0.00007455945, z: 0}
       rotation: {x: 0, y: 0, z: -0.023206346, w: 0.99973077}
       length: 11.006669
       parentId: 1
@@ -2111,19 +2111,19 @@ ScriptedImporter:
     internalID: 0
     spriteBone:
     - name: foot R
-      position: {x: 19.943552, y: 0.000007818404, z: 0}
+      position: {x: 19.943552, y: 0.000009145854, z: 0}
       rotation: {x: 0, y: 0, z: -0.005573715, w: 0.99998444}
       length: 10.421198
       parentId: 1
     - name: calf R
-      position: {x: 26.351076, y: 0.0000037951108, z: 0}
+      position: {x: 26.35106, y: 0.000004001155, z: 0}
       rotation: {x: 0, y: 0, z: 0.03727886, w: 0.9993049}
-      length: 19.943558
+      length: 19.943554
       parentId: 2
     - name: thigh R
       position: {x: 15.06041, y: 59.806396, z: 0}
       rotation: {x: 0, y: 0, z: -0.7023164, w: 0.711865}
-      length: 26.35109
+      length: 26.351074
       parentId: -1
     spriteOutline: []
     vertices:
@@ -2339,7 +2339,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 1.9700003, y: 17.694}
       boneWeight:
-        weight0: 0.76837564
+        weight0: 0.7683756
         weight1: 0.23162441
         weight2: 0
         weight3: 0
@@ -2540,10 +2540,10 @@ ScriptedImporter:
     - name: upper torso
       position: {x: 28.131329, y: -0.000007303188, z: 0}
       rotation: {x: 0, y: 0, z: 0.0023670315, w: 0.9999972}
-      length: 40.953655
+      length: 40.95367
       parentId: 0
     - name: head
-      position: {x: 40.95366, y: 0.00005316287, z: 0}
+      position: {x: 40.953674, y: 0.00006815398, z: 0}
       rotation: {x: 0, y: 0, z: -0.0066795326, w: 0.9999777}
       length: 88.30464
       parentId: 1
@@ -2569,13 +2569,13 @@ ScriptedImporter:
       parentId: 5
     - name: thigh R
       position: {x: 13.078682, y: 20.48782, z: 0}
-      rotation: {x: 0, y: -0, z: -0.99999994, w: 0.00042291087}
-      length: 26.351088
+      rotation: {x: 0, y: -0, z: -0.99999994, w: 0.00042291085}
+      length: 26.351072
       parentId: 0
     - name: calf R
-      position: {x: 26.35108, y: -0.0000045281836, z: 0}
+      position: {x: 26.351065, y: -0.000004322138, z: 0}
       rotation: {x: 0, y: 0, z: 0.037278842, w: 0.9993049}
-      length: 19.943558
+      length: 19.943554
       parentId: 7
     - name: thigh L
       position: {x: 11.501293, y: -19.730696, z: 0}
@@ -2588,13 +2588,13 @@ ScriptedImporter:
       length: 20.176056
       parentId: 9
     - name: foot R
-      position: {x: 19.943556, y: 0.000009485143, z: 0}
+      position: {x: 19.943552, y: 0.000011162941, z: 0}
       rotation: {x: 0, y: 0, z: -0.00557369, w: 0.9999845}
       length: 10.421198
       parentId: 8
     - name: foot L
-      position: {x: 20.176056, y: 0.000040951796, z: 0}
-      rotation: {x: 0, y: 0, z: -0.023206357, w: 0.9997307}
+      position: {x: 20.176058, y: 0.000071527895, z: 0}
+      rotation: {x: 0, y: 0, z: -0.023206392, w: 0.9997307}
       length: 11.006669
       parentId: 10
     parts:
