@@ -67,7 +67,6 @@ namespace CodeMonkey.MonoBehaviours {
                 float distanceAfterMoving = Vector3.Distance(newCameraPosition, cameraFollowPosition);
 
                 if (distanceAfterMoving > distance) {
-                    // Overshot the target
                     newCameraPosition = cameraFollowPosition;
                 }
 
