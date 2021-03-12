@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeMonkey.Utils {
+namespace Utilities.Utils {
 
     public class World_Sprite {
         

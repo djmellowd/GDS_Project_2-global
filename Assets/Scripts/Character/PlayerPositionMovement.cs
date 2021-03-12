@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
-using CodeMonkey.Utils;
+using Utilities.Utils;
 
 public class PlayerPositionMovement : MonoBehaviour {
     

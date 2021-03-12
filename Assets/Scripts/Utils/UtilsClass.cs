@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace CodeMonkey.Utils {
+namespace Utilities.Utils {
 
     public static class UtilsClass {
         

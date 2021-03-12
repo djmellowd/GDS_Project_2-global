@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeMonkey.MonoBehaviours {
+namespace Utilities.MonoBehaviours {
     public class CameraFollow : MonoBehaviour {
         public static CameraFollow Instance { get; private set; }
 

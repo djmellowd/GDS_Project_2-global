@@ -90,8 +90,8 @@ public class V_UnitSkeleton_Composite_Weapon : V_IActiveInactive {
             activeAnimAimWeapon.ApplyAimDir(aimDir, positionOffset, weaponOnTopOfBody ? +bonusOffset : -bonusOffset);
             activeAnimShootWeapon.ApplyAimDir(aimDir, positionOffset, weaponOnTopOfBody ? +bonusOffset : -bonusOffset);
         } else {
-            activeAnimAimWeapon.ApplyAimDir(CodeMonkey.Utils.UtilsClass.ApplyRotationToVector(aimDir, 180), positionOffset, weaponOnTopOfBody ? +bonusOffset : -bonusOffset);
-            activeAnimShootWeapon.ApplyAimDir(CodeMonkey.Utils.UtilsClass.ApplyRotationToVector(aimDir, 180), positionOffset, weaponOnTopOfBody ? +bonusOffset : -bonusOffset);
+            activeAnimAimWeapon.ApplyAimDir(Utilities.Utils.UtilsClass.ApplyRotationToVector(aimDir, 180), positionOffset, weaponOnTopOfBody ? +bonusOffset : -bonusOffset);
+            activeAnimShootWeapon.ApplyAimDir(Utilities.Utils.UtilsClass.ApplyRotationToVector(aimDir, 180), positionOffset, weaponOnTopOfBody ? +bonusOffset : -bonusOffset);
         }
     }
 

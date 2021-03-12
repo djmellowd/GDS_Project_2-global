@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeMonkey {
+namespace Utilities {
 
     public class Assets : MonoBehaviour {
 

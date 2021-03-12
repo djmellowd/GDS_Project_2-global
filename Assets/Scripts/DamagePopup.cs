@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using CodeMonkey.Utils;
+using Utilities.Utils;
 
 public class DamagePopup : MonoBehaviour {
     public static DamagePopup Create(Vector3 position, int damageAmount, bool isCriticalHit) {

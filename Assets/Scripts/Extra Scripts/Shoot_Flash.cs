@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using CodeMonkey.Utils;
+using Utilities.Utils;
 
 public class Shoot_Flash {
 	

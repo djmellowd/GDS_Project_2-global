@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey.Utils;
+using Utilities.Utils;
 using GridPathfindingSystem;
 
 public class GridCombatSystem : MonoBehaviour {
@@ -133,7 +133,7 @@ public class GridCombatSystem : MonoBehaviour {
                                     });
                                 }
                             } else {
-                                CodeMonkey.CMDebug.TextPopupMouse("Cannot attack!");
+                                Utilities.CMDebug.TextPopupMouse("Cannot attack!");
                             }
                             break;
                         } else {

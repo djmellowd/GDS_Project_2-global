@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeMonkey.MonoBehaviours {
+namespace Utilities.MonoBehaviours {
     public class CameraFollowSetup : MonoBehaviour {
 
         [SerializeField] private CameraFollow cameraFollow;

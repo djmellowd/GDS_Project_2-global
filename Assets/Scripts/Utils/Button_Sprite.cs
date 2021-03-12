@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
-namespace CodeMonkey.Utils {
+namespace Utilities.Utils {
 
     public class Button_Sprite : MonoBehaviour {
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using CodeMonkey.Utils;
+using Utilities.Utils;
 
-namespace CodeMonkey {
+namespace Utilities {
 
     public static class CMDebug {
 
