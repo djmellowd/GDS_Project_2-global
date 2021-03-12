@@ -30,7 +30,6 @@ public class ProjectileAttack : MonoBehaviour, IAttack {
     }
 
     public void Attack(Vector3 dir) {
-        // Attack
         Vector3 boltShootDir = (UtilsClass.GetMouseWorldPosition() - transform.position).normalized;
         float boltOffset = 10f;
         Vector3 boltSpawnPosition = transform.position + boltShootDir * boltOffset;
