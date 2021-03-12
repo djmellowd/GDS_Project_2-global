@@ -321,7 +321,7 @@ namespace V_ObjectSystem {
             V_UnitSkeleton.OnAnimComplete onAnimComplete = delegate (UnitAnim u) {
                 instancedObject.DestroySelf();
             };
-            instancedObject.GetLogic<V_IObjectTransform>().GetTransform().GetComponent<CodeMonkey.MonoBehaviours.PositionRendererSorter>().SetOffset(sortingOrderOffset);
+            instancedObject.GetLogic<V_IObjectTransform>().GetTransform().GetComponent<Utilities.MonoBehaviours.PositionRendererSorter>().SetOffset(sortingOrderOffset);
             instancedObject.GetLogic<V_UnitAnimation>().PlayAnimForced(unitAnim, frameRateMod, onAnimComplete, null, null);
             instancedObject.GetLogic<V_IObjectTransform>().SetEulerZ(GetAngleFromVector(rotatePrefabDir));
             instancedObject.GetLogic<V_IObjectTransform>().SetScale(scalePrefab);

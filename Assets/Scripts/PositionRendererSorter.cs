@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeMonkey.MonoBehaviours {
+namespace Utilities.MonoBehaviours {
 
     public class PositionRendererSorter : MonoBehaviour {
 

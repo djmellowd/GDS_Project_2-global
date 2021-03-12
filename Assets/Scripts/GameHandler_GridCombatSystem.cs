@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey;
-using CodeMonkey.Utils;
+using Utilities;
+using Utilities.Utils;
 using GridPathfindingSystem;
 using Cinemachine;
 

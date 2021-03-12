@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey;
+using Utilities;
 
 public static class TimeTickSystem {
 

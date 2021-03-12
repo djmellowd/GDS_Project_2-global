@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using V_AnimationSystem;
-using CodeMonkey.Utils;
+using Utilities.Utils;
 using V_ObjectSystem;
 
 public class CharacterLookAt_Base : MonoBehaviour {

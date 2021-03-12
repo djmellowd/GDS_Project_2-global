@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using CodeMonkey.Utils;
-using CodeMonkey.MonoBehaviours;
+using Utilities.Utils;
+using Utilities.MonoBehaviours;
 
 public class Dirt_Handler {
     

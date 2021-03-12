@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using CodeMonkey.Utils;
+using Utilities.Utils;
 
 public class GridPrefabVisual : MonoBehaviour {
 

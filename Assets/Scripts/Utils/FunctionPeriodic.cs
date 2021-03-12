@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeMonkey.Utils {
+namespace Utilities.Utils {
 
     public class FunctionPeriodic {
 

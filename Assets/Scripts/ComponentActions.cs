@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CodeMonkey.MonoBehaviours {
+namespace Utilities.MonoBehaviours {
     public class ComponentActions : MonoBehaviour {
 
         public Action OnDestroyFunc;
