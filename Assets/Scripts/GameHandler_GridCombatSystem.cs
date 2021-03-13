@@ -31,7 +31,6 @@ public class GameHandler_GridCombatSystem : MonoBehaviour {
 
         gridPathfinding = new GridPathfinding(origin + new Vector3(1, 1) * cellSize * .5f, new Vector3(mapWidth, mapHeight) * cellSize, cellSize);
         gridPathfinding.RaycastWalkable();
-        //gridPathfinding.PrintMap((Vector3 vec, Vector3 size, Color color) => World_Sprite.Create(vec, size, color));
 
         movementTilemap = new MovementTilemap(mapWidth, mapHeight, cellSize, origin);
     }
