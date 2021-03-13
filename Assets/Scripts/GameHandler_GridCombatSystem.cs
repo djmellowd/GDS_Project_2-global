@@ -14,6 +14,10 @@ public class GameHandler_GridCombatSystem : MonoBehaviour {
     [SerializeField] private MovementTilemapVisual movementTilemapVisual;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 
+    [SerializeField] int mapWidth = 40;
+    [SerializeField] int mapHeight = 25;
+    [SerializeField] float cellSize = 10f;
+
     private Grid<GridCombatSystem.GridObject> grid;
     private MovementTilemap movementTilemap;
     public GridPathfinding gridPathfinding;
@@ -21,9 +25,6 @@ public class GameHandler_GridCombatSystem : MonoBehaviour {
     private void Awake() {
         Instance = this;
 
-        int mapWidth = 40;
-        int mapHeight = 25;
-        float cellSize = 10f;
         Vector3 origin = new Vector3(0, 0);
 
         grid = new Grid<GridCombatSystem.GridObject>(mapWidth, mapHeight, cellSize, origin, (Grid<GridCombatSystem.GridObject> g, int x, int y) => new GridCombatSystem.GridObject(g, x, y));
