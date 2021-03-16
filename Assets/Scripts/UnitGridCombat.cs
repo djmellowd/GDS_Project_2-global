@@ -135,4 +135,8 @@ public class UnitGridCombat : MonoBehaviour {
         return unitGridCombat.GetTeam() != team;
     }
 
+    public bool IsPlayer(UnitGridCombat unitGridCombat) {
+        return unitGridCombat.GetTeam() == team;
+    }
+
 }

@@ -7,6 +7,7 @@ using GridPathfindingSystem;
 public class GridCombatSystem : MonoBehaviour {
 
     [SerializeField] private UnitGridCombat[] unitGridCombatArray;
+    [SerializeField] private int maxMoveDistance = 5;
     private UnitGridCombat unitGridCombat;
     private State state;
     private List<UnitGridCombat> blueTeamList;
@@ -53,7 +54,6 @@ public class GridCombatSystem : MonoBehaviour {
             unitGridCombat = GetNextActiveUnit(UnitGridCombat.Team.Red);
         }
 
-        GameHandler_GridCombatSystem.Instance.SetCameraFollowPosition(unitGridCombat.GetPosition());
         canMoveThisTurn = true;
         canAttackThisTurn = true;
     }
@@ -92,7 +92,6 @@ public class GridCombatSystem : MonoBehaviour {
             }
         }
 
-        int maxMoveDistance = 5;
         for (int x = unitX - maxMoveDistance; x <= unitX + maxMoveDistance; x++) {
             for (int y = unitY - maxMoveDistance; y <= unitY + maxMoveDistance; y++) {
                 if (gridPathfinding.IsWalkable(x, y)) {
@@ -126,6 +125,7 @@ public class GridCombatSystem : MonoBehaviour {
                             if (unitGridCombat.CanAttackUnit(gridObject.GetUnitGridCombat())) {
                                 if (canAttackThisTurn) {
                                     canAttackThisTurn = false;
+                                    canMoveThisTurn = false;
                                     state = State.Waiting;
                                     unitGridCombat.AttackUnit(gridObject.GetUnitGridCombat(), () => {
                                         state = State.Normal;
@@ -145,7 +145,7 @@ public class GridCombatSystem : MonoBehaviour {
 
                         if (canMoveThisTurn) {
                             canMoveThisTurn = false;
-
+                            canAttackThisTurn = false;
                             state = State.Waiting;
 
                             GameHandler_GridCombatSystem.Instance.GetMovementTilemap().SetAllTilemapSprite(

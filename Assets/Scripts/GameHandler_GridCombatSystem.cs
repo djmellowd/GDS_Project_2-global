@@ -39,7 +39,7 @@ public class GameHandler_GridCombatSystem : MonoBehaviour {
         movementTilemap.SetTilemapVisual(movementTilemapVisual);
     }
 
-    private void Update() {
+    /* private void Update() {
         HandleCameraMovement();
     }
 
@@ -61,7 +61,7 @@ public class GameHandler_GridCombatSystem : MonoBehaviour {
 
         float moveSpeed = 80f;
         cinemachineFollowTransform.position += moveDir * moveSpeed * Time.deltaTime;
-    }
+    } */
 
     public Grid<GridCombatSystem.GridObject> GetGrid() {
         return grid;
