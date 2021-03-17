@@ -97,8 +97,6 @@ public class Character_Base : MonoBehaviour, ICharacterAnims, IGetPosition {
         unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_PunchQuick"), dir, 1f, (UnitAnim unitAnim2) => {
             if (onAnimComplete != null) onAnimComplete();
         }, (string trigger) => {
-            // HIT = HandR
-            // HIT2 = HandL
             string hitBodyPartName = trigger == "HIT" ? "HandR" : "HandL";
             Vector3 impactPosition = unitSkeleton.GetBodyPartPosition(hitBodyPartName);
             if (onHit != null) {
@@ -111,8 +109,6 @@ public class Character_Base : MonoBehaviour, ICharacterAnims, IGetPosition {
         unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_KickQuick"), dir, 1f, (UnitAnim unitAnim2) => {
             if (onAnimComplete != null) onAnimComplete();
         }, (string trigger) => {
-            // HIT = FootL
-            // HIT2 = FootR
             string hitBodyPartName = trigger == "HIT" ? "FootL" : "FootR";
             Vector3 impactPosition = unitSkeleton.GetBodyPartPosition(hitBodyPartName);
             if (onHit != null) {
@@ -125,8 +121,6 @@ public class Character_Base : MonoBehaviour, ICharacterAnims, IGetPosition {
         unitAnimation.PlayAnimForced(UnitAnimType.GetUnitAnimType("dBareHands_Punch"), dir, 1f, (UnitAnim unitAnim2) => {
             if (onAnimComplete != null) onAnimComplete();
         }, (string trigger) => {
-            // HIT = HandR
-            // HIT2 = HandL
             string hitBodyPartName = trigger == "HIT" ? "HandR" : "HandL";
             Vector3 impactPosition = unitSkeleton.GetBodyPartPosition(hitBodyPartName);
             if (onHit != null) {

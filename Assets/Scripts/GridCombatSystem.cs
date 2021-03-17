@@ -17,6 +17,9 @@ public class GridCombatSystem : MonoBehaviour {
     private bool canMoveThisTurn;
     private bool canAttackThisTurn;
 
+    private int unitBlueCount;
+    private int unitRedCount;
+
     private enum State {
         Normal,
         Waiting
@@ -48,10 +51,19 @@ public class GridCombatSystem : MonoBehaviour {
     }
 
     private void SelectNextActiveUnit() {
-        if (unitGridCombat == null || unitGridCombat.GetTeam() == UnitGridCombat.Team.Red) {
+        if (unitGridCombat == null || unitGridCombat.GetTeam() == UnitGridCombat.Team.Blue) {
             unitGridCombat = GetNextActiveUnit(UnitGridCombat.Team.Blue);
-        } else {
+            unitBlueCount += 1;
+        }
+        if (unitBlueCount == 6) {
             unitGridCombat = GetNextActiveUnit(UnitGridCombat.Team.Red);
+            unitRedCount += 1;
+        }
+        if (unitRedCount == 6) {
+            unitGridCombat = GetNextActiveUnit(UnitGridCombat.Team.Blue);
+            unitBlueCount = 0;
+            unitRedCount = 0;
+            unitBlueCount += 1;
         }
 
         canMoveThisTurn = true;
@@ -61,14 +73,14 @@ public class GridCombatSystem : MonoBehaviour {
     private UnitGridCombat GetNextActiveUnit(UnitGridCombat.Team team) {
         if (team == UnitGridCombat.Team.Blue) {
             blueTeamActiveUnitIndex = (blueTeamActiveUnitIndex + 1) % blueTeamList.Count;
-            if (blueTeamList[blueTeamActiveUnitIndex] == null || blueTeamList[blueTeamActiveUnitIndex].IsDead()) {
+            if (blueTeamList[blueTeamActiveUnitIndex] == null) {
                 return GetNextActiveUnit(team);
             } else {
                 return blueTeamList[blueTeamActiveUnitIndex];
             }
         } else {
             redTeamActiveUnitIndex = (redTeamActiveUnitIndex + 1) % redTeamList.Count;
-            if (redTeamList[redTeamActiveUnitIndex] == null || redTeamList[redTeamActiveUnitIndex].IsDead()) {
+            if (redTeamList[redTeamActiveUnitIndex] == null) {
                 return GetNextActiveUnit(team);
             } else {
                 return redTeamList[redTeamActiveUnitIndex];
@@ -136,7 +148,13 @@ public class GridCombatSystem : MonoBehaviour {
                                 Utilities.CMDebug.TextPopupMouse("Cannot attack!");
                             }
                             break;
-                        } else {
+                        } else if (unitGridCombat.IsPlayer(gridObject.GetUnitGridCombat())) {
+                            if (unitGridCombat.GetTeam() == UnitGridCombat.Team.Blue) {
+                                SelectNextActiveUnit();
+                            }
+                            else {
+                                SelectNextActiveUnit();
+                            }
                         }
                     } else {
                     }
@@ -174,7 +192,7 @@ public class GridCombatSystem : MonoBehaviour {
     }
 
     private void TestTurnOver() {
-        if (!canMoveThisTurn && !canAttackThisTurn) {
+        if (!canMoveThisTurn || !canAttackThisTurn) {
             ForceTurnOver();
         }
     }
