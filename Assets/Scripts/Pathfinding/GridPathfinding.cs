@@ -147,7 +147,6 @@ namespace GridPathfindingSystem {
         }
 
         public void Initialize(int mapWidth, int mapHeight) {
-            // Creates PathNodes
             for (int x = 0; x < mapNodes.Length; x++) {
                 for (int y = 0; y < mapNodes[x].Length; y++) {
                     mapNodes[x][y] = new PathNode(x, y);
@@ -222,7 +221,6 @@ namespace GridPathfindingSystem {
         }
 
         private bool IsValidShortcut(int startX, int startY, int endX, int endY) {
-            //Debug.Log("Testing Shortcut: " + startX + ", " + startY + " -> " + endX + ", " + endY);
             int shortcutWeight = mapNodes[startX][startY].weight;
             Vector3 dir = (new Vector3(endX, endY) - new Vector3(startX, startY)).normalized;
             Vector3 test = new Vector3(startX, startY) + dir;
