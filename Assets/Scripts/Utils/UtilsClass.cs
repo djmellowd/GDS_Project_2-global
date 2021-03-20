@@ -376,7 +376,6 @@ namespace Utilities.Utils {
                     if (onWaitingForToPosition != null) onWaitingForToPosition(from, UtilsClass.GetMouseWorldPosition());
                 }
                 if (state == 1 && Input.GetMouseButtonDown(cancelMouseButton)) {
-                    // Cancel
                     state = 0;
                 }
                 if (Input.GetMouseButtonDown(mouseButton) && !UtilsClass.IsPointerOverUI()) {

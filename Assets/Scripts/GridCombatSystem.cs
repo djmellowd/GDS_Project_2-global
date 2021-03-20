@@ -20,12 +20,33 @@ public class GridCombatSystem : MonoBehaviour {
     private int unitBlueCount;
     private int unitRedCount;
 
+    private GameObject A1x;
+    private GameObject B1x;
+    private GameObject C1x;
+    private GameObject D1x;
+    private GameObject E1x;
+    private GameObject A2x;
+    private GameObject B2x;
+    private GameObject C2x;
+    private GameObject D2x;
+    private GameObject E2x;
+
     private enum State {
         Normal,
         Waiting
     }
 
     private void Awake() {
+        A1x = GameObject.FindWithTag("A1");
+        B1x = GameObject.FindWithTag("B1");
+        C1x = GameObject.FindWithTag("C1");
+        D1x = GameObject.FindWithTag("D1");
+        E1x = GameObject.FindWithTag("E1");
+        A2x = GameObject.FindWithTag("A2");
+        B2x = GameObject.FindWithTag("B2");
+        C2x = GameObject.FindWithTag("C2");
+        D2x = GameObject.FindWithTag("D2");
+        E2x = GameObject.FindWithTag("E2");
         state = State.Normal;
     }
 
