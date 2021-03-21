@@ -150,10 +150,10 @@ public class GridCombatSystem : MonoBehaviour {
                             break;
                         } else if (unitGridCombat.IsPlayer(gridObject.GetUnitGridCombat())) {
                             if (unitGridCombat.GetTeam() == UnitGridCombat.Team.Blue) {
-                                SelectNextActiveUnit();
+                                break;
                             }
                             else {
-                                SelectNextActiveUnit();
+                                break;
                             }
                         }
                     } else {
