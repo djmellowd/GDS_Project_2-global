@@ -14,8 +14,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4440788227359775732, guid: 7dc81144182028b4aabd6a3aff8f3c10,
         type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4440788227359775732, guid: 7dc81144182028b4aabd6a3aff8f3c10,
         type: 3}
@@ -24,13 +24,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4440788227359775732, guid: 7dc81144182028b4aabd6a3aff8f3c10,
         type: 3}
-      propertyPath: m_Color.b
-      value: 0
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4688649758438056650, guid: 7dc81144182028b4aabd6a3aff8f3c10,
         type: 3}
       propertyPath: m_Name
       value: pfUnitGrid_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,
         type: 3}
@@ -49,6 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -60,16 +70,6 @@ PrefabInstance:
     - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4688649758438056658, guid: 7dc81144182028b4aabd6a3aff8f3c10,

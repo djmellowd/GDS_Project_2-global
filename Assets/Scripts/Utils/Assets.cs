@@ -10,7 +10,7 @@ namespace Utilities {
 
         public static Assets i {
             get {
-                if (_i == null) _i = Instantiate(Resources.Load<Assets>("CodeMonkeyAssets")); 
+                if (_i == null) _i = Instantiate(Resources.Load<Assets>("GameAssets")); 
                 return _i; 
             }
         }

@@ -7,7 +7,7 @@ using Utilities.Utils;
 public class UnitGridCombat : MonoBehaviour {
 
     [SerializeField] private Team team;
-    [SerializeField] private float distanceAttackRange = 50f;
+    [SerializeField] private float AttackRange = 50f;
 
     private Character_Base characterBase;
     private HealthSystem healthSystem;
@@ -65,7 +65,7 @@ public class UnitGridCombat : MonoBehaviour {
     }
 
     public bool CanAttackUnit(UnitGridCombat unitGridCombat) {
-        return Vector3.Distance(GetPosition(), unitGridCombat.GetPosition()) < distanceAttackRange;
+        return Vector3.Distance(GetPosition(), unitGridCombat.GetPosition()) < AttackRange;
     }
 
     public void AttackUnit(UnitGridCombat unitGridCombat, Action onAttackComplete) {

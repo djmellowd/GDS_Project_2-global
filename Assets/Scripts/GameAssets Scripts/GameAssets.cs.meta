@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 3b803e20a4fd97b45be60489e2bf6f97
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - s_ShootFlash: {instanceID: 0}
+  - pfSwordSlash: {instanceID: 0}
+  - pfEnemy: {instanceID: 0}
+  - pfEnemyFlyingBody: {instanceID: 0}
+  - pfImpactEffect: {instanceID: 0}
+  - pfDamagePopup: {instanceID: 0}
+  - pfDashEffect: {instanceID: 0}
+  - pfProjectileArrow: {instanceID: 0}
+  - pfBolt: {instanceID: 0}
+  - pfSmoke: {instanceID: 0}
+  - m_WeaponTracer: {instanceID: 0}
+  - m_MarineSpriteSheet: {instanceID: 0}
+  - m_DoorRed: {instanceID: 0}
+  - m_DoorGreen: {instanceID: 0}
+  - m_DoorBlue: {instanceID: 0}
+  - m_DoorKeyHoleRed: {instanceID: 0}
+  - m_DoorKeyHoleGreen: {instanceID: 0}
+  - m_DoorKeyHoleBlue: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
