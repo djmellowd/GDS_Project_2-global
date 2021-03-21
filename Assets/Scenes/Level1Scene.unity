@@ -7860,8 +7860,8 @@ MonoBehaviour:
   cinemachineFollowTransform: {fileID: 56967905}
   movementTilemapVisual: {fileID: 2054434990}
   cinemachineVirtualCamera: {fileID: 173041330}
-  mapWidth: 18
-  mapHeight: 25
+  mapWidth: 25
+  mapHeight: 50
   cellSize: 10
 --- !u!114 &1582514910 stripped
 MonoBehaviour:
